@@ -4,6 +4,55 @@
   width: 650px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#main-text-container {
+  margin-top: 10px;
+  text-align: justify;
+  border-style: dotted;
+  border-color: #1b9ce5;
+  border-width: 2px;
+  padding: 10px;
+}
+
+#profile-pic {
+  width: 200px;
+  display: block;
+  margin: auto;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.centered-text {
+  text-align: center
+}
+
+body {
+  font-family: Helvetica
+}
+
+#buttons {
+  text-align: center;
+  padding: 10px;
+}
+
+.button {
+  outline: none;
+  transition-duration: 0.4s;
+  background-color: #1b9ce5;
+  border: none;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 3px;
+  width: 120px;
+}
+
+.button:hover {
+  background-color: #0074e1;
+}
+
+a {
+  color: #0074e1;
+}
+
+a:hover {
+  color: #1b9ce5;
 }

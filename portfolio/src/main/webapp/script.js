@@ -13,16 +13,30 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds an About section to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function addAbout() {
+    const text = 'My name is Azhara. I am originally from Nur-Sultan, Kazakhstan. ' 
+    + 'In my free time, I like to dance and practice my freestyle in styles like waacking, house and locking.';
+    setMainText(text);
+}
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+function addProjects() {
+    const text = "Projects";
+    setMainText(text);
+}
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+function addGallery() {
+    const text = "Gallery";
+    setMainText(text);
+}
+
+function addBlog() {
+    const text = "Blog";
+    setMainText(text);
+}
+
+function setMainText(text) {
+    const textContainer = document.getElementById('main-text-container');
+    textContainer.innerText = text;
 }

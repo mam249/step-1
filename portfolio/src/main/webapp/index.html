@@ -2,17 +2,25 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Azhara's Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+  <body onload="addAbout()">
+    <div id="content"> 
+      <h1 class="centered-text">Azhara's Portfolio</h1>
+      <p class="centered-text"><a href="https://linkedin.com/in/azhara-a" target="_blank">LinkedIn</a>  |  <a href="https://github.com/azhara-a" target="_blank"> GitHub</a></p>
+      <p class="centered-text">Hi! I'm Azhara and welcome to my portfolio :)</p>
+      <img id="profile-pic" src="images/profile.jpg"/>
+      
+      <div id="buttons">
+        <button onclick="addAbout()" class="button">About Me</button>
+        <button onclick="addProjects()" class="button">Projects</button>
+        <button onclick="addGallery()" class="button">Gallery</button>
+        <button onclick="addBlog()" class="button">Blog</button>
+      </div>
+
+      <div id="main-text-container"></div>
     </div>
   </body>
 </html>
