@@ -11,3 +11,11 @@
 #profile-pic {
     width:200px;
 }
+
+.centered-text {
+    text-align: center
+}
+
+body {
+    font-family: Helvetica
+}
