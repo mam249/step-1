@@ -1,16 +1,13 @@
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 650px;
+  width: 70%;
+  margin-top: 30px;
 }
 
-#main-text-container {
-  margin-top: 10px;
-  text-align: justify;
-  border-style: dotted;
-  border-color: #1b9ce5;
-  border-width: 2px;
-  padding: 10px;
+p {
+    text-align: justify;
+    padding: 5px;
 }
 
 #profile-pic {
@@ -26,7 +23,8 @@
 }
 
 body {
-  font-family: Helvetica
+  font-family: Helvetica;
+  position: relative;
 }
 
 #buttons {
@@ -40,7 +38,6 @@ body {
   background-color: #1b9ce5;
   border: none;
   color: white;
-  padding: 10px 30px;
   border-radius: 3px;
   width: 120px;
 }
@@ -55,4 +52,11 @@ a {
 
 a:hover {
   color: #1b9ce5;
+}
+
+.scrollspy-example {
+    position: relative;
+    height: 200px;
+    margin-top: .5rem;
+    overflow: auto;
 }

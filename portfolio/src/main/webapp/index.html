@@ -1,26 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Azhara's Portfolio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="addAbout()">
-    <div id="content"> 
-      <h1 class="centered-text">Azhara's Portfolio</h1>
-      <p class="centered-text"><a href="https://linkedin.com/in/azhara-a" target="_blank">LinkedIn</a>  |  <a href="https://github.com/azhara-a" target="_blank"> GitHub</a></p>
-      <p class="centered-text">Hi! I'm Azhara and welcome to my portfolio :)</p>
-      <img id="profile-pic" src="images/profile.jpg"/>
-      
-      <div id="buttons">
-        <button onclick="addAbout()" class="button">About Me</button>
-        <button onclick="addProjects()" class="button">Projects</button>
-        <button onclick="addGallery()" class="button">Gallery</button>
-        <button onclick="addBlog()" class="button">Blog</button>
-      </div>
+  <body>
+      <div id="content">
+        <h1 class="centered-text">Azhara's Portfolio</h1>
+        <p class="centered-text"><a href="https://linkedin.com/in/azhara-a" target="_blank">LinkedIn</a>  |  <a href="https://github.com/azhara-a" target="_blank"> GitHub</a></p>
+        <p class="centered-text">Hi! I'm Azhara. I'm a STEP Intern at Google</p>
+        <img id="profile-pic" src="images/profile.jpg"/>
+        <div class="row" >
+        <div class="col-4">
+            <div class="list-group" id="list-example">
+                <a class="list-group-item list-group-item-action" href="#list-about-me">About Me</a> 
+                <a class="list-group-item list-group-item-action" href="#list-projects">Projects</a>
+                <a class="list-group-item list-group-item-action" href="#list-gallery">Gallery</a>
+                <a class="list-group-item list-group-item-action" href="#list-blog">Blog</a>     
+            </div>
+        </div>
+        <div class="col-8">
+            <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+                <h4 id="list-about-me">About Me</h4>
+                <p>I'm a 2nd year Computing at Imperial College London. I’m from Nur-Sultan, Kazakhstan. 
+                    I lived there until 2016 and then went to a boarding school in Singapore, UWCSEA East, 
+                    to study International Baccalaureate. My IB package was Higher Level: Mathematics, 
+                    Computer Science, Economics and Standard Level: English Literature, Russian Literature, 
+                    Theatre. 
+                </p>
+                <p>People would tell me I had an unconventional subject package, but I really enjoyed all 
+                    the courses I took as I believe that each one of them taught something special to me.
+                </p>
+                <h4 id="list-projects">Projects</h4>
+                <p></p>
+                <h4 id="list-gallery">Gallery</h4>
+                <p></p>
+                <h4 id="list-blog">Blog</h4>
+                <p></p>
 
-      <div id="main-text-container"></div>
+            </div>
+        </div>
+        </div>   
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </body>
 </html>
