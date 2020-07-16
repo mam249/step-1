@@ -57,7 +57,7 @@ a:hover {
 
 .scrollspy {
     position: relative;
-    height: 400px;
+    height: 1000px;
     margin-top: .5rem;
     overflow: auto;
 }
@@ -70,4 +70,9 @@ a:hover {
 .card {
     margin-top: 15px;
     margin-bottom: 15px !important;
+}
+
+#carousel-gallery {
+    margin-left: 40px;
+    margin-right: 40px;
 }
