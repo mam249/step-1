@@ -28,7 +28,7 @@ p {
 }
 
 body {
-  font-family: Helvetica;
+  font-family: 'Poppins', sans-serif;
   position: relative;
   height: 100%;
 }
@@ -84,4 +84,28 @@ a:hover {
 
 .list-group-item {
   width: 150px;
+}
+
+.card-footer, .card {
+  border-color: transparent !important;
+  border-radius: 0% !important;
+}
+
+.card {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+
+#dora-card {
+  background-color: #EF6950 !important;
+}
+
+#au-card {
+  background-color: #2980b9 !important;
+  color: white;
+}
+
+#wacc-card {
+  background-color: #2c3e50;
+  color: white;
 }
