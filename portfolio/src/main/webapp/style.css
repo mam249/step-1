@@ -7,8 +7,8 @@
 }
 
 p {
-    text-align: justify;
-    padding: 5px;
+  text-align: justify;
+  padding: 5px;
 }
 
 #profile-pic {
@@ -56,23 +56,23 @@ a:hover {
 }
 
 .scrollspy {
-    position: relative;
-    height: 1000px;
-    margin-top: .5rem;
-    overflow: auto;
+  position: relative;
+  height: 1000px;
+  margin-top: .5rem;
+  overflow: auto;
 }
 
 .card-deck {
-    margin-right: 0px;
-    margin-left: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
 .card {
-    margin-top: 15px;
-    margin-bottom: 15px !important;
+  margin-top: 15px;
+  margin-bottom: 15px !important;
 }
 
 #carousel-gallery {
-    margin-left: 40px;
-    margin-right: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
