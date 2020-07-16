@@ -12,31 +12,3 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds an About section to the page.
- */
-function addAbout() {
-    const text = 'My name is Azhara. I am originally from Nur-Sultan, Kazakhstan. ' 
-    + 'In my free time, I like to dance and practice my freestyle in styles like waacking, house and locking.';
-    setMainText(text);
-}
-
-function addProjects() {
-    const text = "Projects";
-    setMainText(text);
-}
-
-function addGallery() {
-    const text = "Gallery";
-    setMainText(text);
-}
-
-function addBlog() {
-    const text = "Blog";
-    setMainText(text);
-}
-
-function setMainText(text) {
-    const textContainer = document.getElementById('main-text-container');
-    textContainer.innerText = text;
-}

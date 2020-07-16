@@ -54,9 +54,10 @@ a:hover {
   color: #1b9ce5;
 }
 
-.scrollspy-example {
+.scrollspy {
     position: relative;
     height: 200px;
     margin-top: .5rem;
     overflow: auto;
 }
+

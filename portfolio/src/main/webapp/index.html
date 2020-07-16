@@ -6,6 +6,7 @@
     <title>Azhara's Portfolio</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
   </head>
   <body>
@@ -14,19 +15,22 @@
         <p class="centered-text"><a href="https://linkedin.com/in/azhara-a" target="_blank">LinkedIn</a>  |  <a href="https://github.com/azhara-a" target="_blank"> GitHub</a></p>
         <p class="centered-text">Hi! I'm Azhara. I'm a STEP Intern at Google</p>
         <img id="profile-pic" src="images/profile.jpg"/>
-        <div class="row" >
-        <div class="col-4">
-            <div class="list-group" id="list-example">
+        <nav class="navbar navbar-expand-lg navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#list-sections" aria-controls="list-sections" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        </nav>
+        <div class="row">
+        <div class="col-3">
+            <div class="list-group collapse" id="list-sections">
                 <a class="list-group-item list-group-item-action" href="#list-about-me">About Me</a> 
                 <a class="list-group-item list-group-item-action" href="#list-projects">Projects</a>
                 <a class="list-group-item list-group-item-action" href="#list-gallery">Gallery</a>
                 <a class="list-group-item list-group-item-action" href="#list-blog">Blog</a>     
             </div>
         </div>
-        <div class="col-8">
-            <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+        <div class="col-9">
+            <div data-spy="scroll" data-target="#list-sections" data-offset="0" class="scrollspy">
                 <h4 id="list-about-me">About Me</h4>
-                <p>I'm a 2nd year Computing at Imperial College London. I’m from Nur-Sultan, Kazakhstan. 
+                <p>I'm a 2nd year Computing student at Imperial College London. I'm originally from Nur-Sultan, Kazakhstan. 
                     I lived there until 2016 and then went to a boarding school in Singapore, UWCSEA East, 
                     to study International Baccalaureate. My IB package was Higher Level: Mathematics, 
                     Computer Science, Economics and Standard Level: English Literature, Russian Literature, 
