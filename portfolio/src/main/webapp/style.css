@@ -2,8 +2,12 @@
   margin-left: auto;
   margin-right: auto;
   width: 70%;
-  margin-top: 30px;
+  margin-top: 70px;
   margin-bottom: 30px;
+}
+
+.section {
+  margin-top: 70px;
 }
 
 p {
@@ -26,6 +30,7 @@ p {
 body {
   font-family: Helvetica;
   position: relative;
+  height: 100%;
 }
 
 #buttons {
@@ -57,7 +62,7 @@ a:hover {
 
 .scrollspy {
   position: relative;
-  height: 1000px;
+  height: 100%;
   margin-top: .5rem;
   overflow: auto;
 }
@@ -75,4 +80,8 @@ a:hover {
 #carousel-gallery {
   margin-left: 40px;
   margin-right: 40px;
+}
+
+.list-group-item {
+  width: 150px;
 }
