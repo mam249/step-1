@@ -24,10 +24,6 @@ p {
   border-radius: 50%;
 }
 
-.centered-text {
-  text-align: center
-}
-
 body {
   font-family: 'Poppins', sans-serif;
   position: relative;
@@ -112,7 +108,7 @@ a:hover {
 
 #gallery-text-card {
   background-color: #e9c3b8;
-  margin-top: 3px !important;
+  margin-bottom: 3px !important;
 }
 
 #about-card {
@@ -143,13 +139,29 @@ a:hover {
 
 h1 {
   font-weight: 700;
+  font-size: 3.25rem !important;
 }
 
 .nav-link, .nav-link:hover {
   color: #26555d !important;
 }
 
-#carousel-gallery {
-  width: 70%;
-  margin: auto;
+#portfolio-title {
+  background:linear-gradient(330deg, #e05252 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #e05252 100%);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-body {
+  padding: 1.75rem !important;
+}
+
+h3 {
+  font-size: 1.75rem !important;
+  font-weight: 700;
+}
+
+.blog-card-body {
+  background-color: white;
 }
