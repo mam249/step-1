@@ -52,15 +52,20 @@
 
       <div id="about-me">
         <h1 class="section">About Me</h1>
-        <p>I'm a 2nd year Computing student at Imperial College London. I'm originally from Nur-Sultan, Kazakhstan.
-          I lived there until 2016 and then went to a boarding school in Singapore, UWCSEA East,
-          to study International Baccalaureate. My IB package was Higher Level: Mathematics,
-          Computer Science, Economics and Standard Level: English Literature, Russian Literature,
-          Theatre.
-        </p>
-        <p>People would tell me I had an unconventional subject package, but I really enjoyed all
-          the courses I took as I believe that each one of them taught something special to me.
-        </p>
+        <div class="card mb-3" id="about-card">
+          <div class="card-body">
+            <p class="card-text">I'm a 2nd year Computing student at Imperial College London. I'm originally from
+              Nur-Sultan, Kazakhstan.
+              I lived there until 2016 and then went to a boarding school in Singapore, UWCSEA East,
+              to study International Baccalaureate. My IB package was Higher Level: Mathematics,
+              Computer Science, Economics and Standard Level: English Literature, Russian Literature,
+              Theatre.
+            </p>
+            <p class="card-text">People would tell me I had an unconventional subject package, but I really enjoyed all
+              the courses I took as I believe that each one of them taught something special to me.
+            </p>
+          </div>
+        </div>
       </div>
 
 
@@ -68,12 +73,12 @@
         <h1 class="section">Projects</h1>
         <div class="card mb-3" id="dora-card">
           <div class="row no-gutters align-items-center">
-            <div class="col-md-5">
+            <div class="col-md-4">
               <img src="images/dora.png" class="card-img" alt="dora">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">Dora - Donation Management Web App</h5>
+                <h5 class="card-title text-center">Dora - Donation Management Web App</h5>
                 <p class="card-text">🏆 Top 2 out of 48 groups: Designing for Real People at Imperial</p>
                 <p class="card-text"> In a group of 4, built a donation management web application for
                   a UK based charity Change 1’s Life. The charity aims to assist people in need
@@ -87,53 +92,58 @@
                   <li>Back-end: Flask Python</li>
                   <li>React JS, HTML, CSS</li>
                 </ul>
-
+                <p class="card-text text-center"><small>May 2020 (2 months)</small></p>
               </div>
             </div>
           </div>
-          <div class="card-footer bg-transparent text-center"><small>May 2020 (2 months)</small></div>
         </div>
 
         <div class="card-group">
-          <div class="card" id="au-card">
+          <div class="card align-items-center" id="au-card">
             <div class="card-body">
-              <h5 class="card-title">au.pair - Incident Reporting Service</h5>
-              <p class="card-text">🏆 Best Community Hack at IC Hack 20</p>
-              <p class="card-text">In a group of 5, built a web app that receives footage of potential incidents,
-                and the authorities are notified, or normal events. I was responsible for the front-end of the project.
-              </p>
-              <p class="card-text">
-                Tech Stack</p>
-              <ul>
-                <li>Back-end: Flask Python, node application that detects incidents using
-                  TensorFlow and collects the data from Meraki API</li>
-                <li>React JS, HTML, CSS</li>
-              </ul>
+              <div class="my-auto vertical-center-card">
+
+                <h5 class="card-titl text-center">au.pair - Incident Reporting Service</h5>
+                <p class="card-text">🏆 Best Community Hack at IC Hack 20</p>
+                <p class="card-text">In a group of 5, built a web app that receives footage of potential incidents,
+                  and the authorities are notified, or normal events. I was responsible for the front-end of the
+                  project.
+                </p>
+                <p class="card-text">
+                  Tech Stack</p>
+                <ul>
+                  <li>Back-end: Flask Python, node application that detects incidents using
+                    TensorFlow and collects the data from Meraki API</li>
+                  <li>React JS, HTML, CSS</li>
+                </ul>
+                <p class="card-text text-center"><small>February 2020 (1 day)</small>
+                </p>
+              </div>
             </div>
-            <div class="card-footer bg-transparent text-center"><small>February 2020 (1 day)</small>
-            </div>
+
           </div>
 
 
           <div class="card" id="wacc-card">
-            <div class="card-body">
-              <h5 class="card-title">WACC Compiler</h5>
-              <p class="card-text"> In a group of 4, designed and developed a compiler for
-                a programming language WACC, a variant of While. I implemented a semantic checker with a
-                symbol table for the generation of the Abstract Syntax Tree. Some extra
-                features I developed are function overloading and array bound analysis at compile time.</p>
-              <p class="card-text">
-                Tech Stack: Kotlin
-              </p>
-            </div>
-            <div class="card-footer bg-transparent text-center"><small>January 2020 (3 months)</small>
+            <div class="card-body align-items-center ">
+              <div class="my-auto vertical-center-card">
+                <h5 class="card-title text-center ">WACC Compiler</h5>
+                <p class="card-text"> In a group of 4, designed and developed a compiler for
+                  a programming language WACC, a variant of While. I implemented a semantic checker with a
+                  symbol table for the generation of the Abstract Syntax Tree. Some extra
+                  features I developed are function overloading and array bound analysis at compile time.</p>
+                <p class="card-text">
+                  Tech Stack: Kotlin
+                </p>
+                <p class="card-text text-center"><small>January 2020 (3 months)</small></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div id="gallery">
         <h1 class="section">Gallery</h1>
-        <div id="carousel-gallery" class="carousel slide" data-ride="carousel">
+        <div id="carousel-gallery" class="carousel slide " data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#carousel-gallery" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-gallery" data-slide-to="1"></li>
@@ -190,10 +200,12 @@
           </a>
         </div>
 
-        <p id="gallery-text">
-          Whenever I travel anywhere, I always get fascinated by architecture and nature surrounding me.
-          I like the process of finding a good angle and lighting to showcase the beauty of what I see.
-        </p>
+        <div class="card mb-3" id="gallery-text-card">
+          <div class="card-body"> Whenever I travel anywhere, I always get fascinated by architecture and nature
+            surrounding me.
+            I like the process of finding a good angle and lighting to showcase the beauty of what I see.
+          </div>
+        </div>
       </div>
 
       <div id="blog">
@@ -209,13 +221,14 @@
               </h5>
             </div>
 
-            <div id="collapse-one" class="collapse show" aria-labelledby="blog-one" data-parent="#accordion">
+            <div id="collapse-one" class="collapse show blog-card" aria-labelledby="blog-one" data-parent="#accordion">
               <div class="card-body">
-               <p>Most people probably don't know what <strong>waacking, locking and house</strong> are. Well, these 3 things
-                are my escape from all the routine work I get from everyday life. These 3 things
-                are dance styles that I can't live without. All of them are very different, but 
-                I just happen to mix them in my freestyle all the time.  </p>
-               <p>Read the next 3 posts to understand what they are.</p>
+                <p>Most people probably don't know what <strong>waacking, locking and house</strong> are. Well, these 3
+                  things
+                  are my escape from all the routine work I get from everyday life. These 3 things
+                  are dance styles that I can't live without. All of them are very different, but
+                  I just happen to mix them in my freestyle all the time. </p>
+                <p>Read the next 3 posts to understand what they are.</p>
               </div>
             </div>
           </div>
@@ -229,13 +242,13 @@
                 </button>
               </h5>
             </div>
-            <div id="collapse-two" class="collapse" aria-labelledby="blog-two" data-parent="#accordion">
+            <div id="collapse-two" class="collapse blog-card" aria-labelledby="blog-two" data-parent="#accordion">
               <div class="card-body">
-               <p> Waacking was originated in the 1970s on the west coast in the US.  Waacking is 
-                usually described as a feminine dance, but surprisingly, it was founded by the gay community
-                to express their feelings and emotions. Waacking music
-                is usually disco, funk and female vocals. As for the moves, waackers, people
-                who dance waacking, use their arms and hands in a very fast pace to demonstrate the melody.</p>
+                <p> Waacking was originated in the 1970s on the west coast in the US. Waacking is
+                  usually described as a feminine dance, but surprisingly, it was founded by the gay community
+                  to express their feelings and emotions. Waacking music
+                  is usually disco, funk and female vocals. As for the moves, waackers, people
+                  who dance waacking, use their arms and hands in a very fast pace to demonstrate the melody.</p>
               </div>
             </div>
           </div>
@@ -249,13 +262,13 @@
                 </button>
               </h5>
             </div>
-            <div id="collapse-three" class="collapse" aria-labelledby="blog-three" data-parent="#accordion">
+            <div id="collapse-three" class="collapse blog-card" aria-labelledby="blog-three" data-parent="#accordion">
               <div class="card-body">
-               <p> Locking came to life in the 1960s in the US when its founder, Don Campbell, accidentally 
-                created a new move from a hip hop move "Robot Shuffle". Like waacking, locking is danced to 
-                funky and happy music. Lockers can be recognised because of their "locking" moves which 
-                are freezing from a fast movement and "locking" in a position by holding it for a short period of time
-                which is then followed by their fast moves.</p>
+                <p> Locking came to life in the 1960s in the US when its founder, Don Campbell, accidentally
+                  created a new move from a hip hop move "Robot Shuffle". Like waacking, locking is danced to
+                  funky and happy music. Lockers can be recognised because of their "locking" moves which
+                  are freezing from a fast movement and "locking" in a position by holding it for a short period of time
+                  which is then followed by their fast moves.</p>
               </div>
             </div>
           </div>
@@ -269,13 +282,13 @@
                 </button>
               </h5>
             </div>
-            <div id="collapse-four" class="collapse" aria-labelledby="blog-four" data-parent="#accordion">
+            <div id="collapse-four" class="collapse blog-card" aria-labelledby="blog-four" data-parent="#accordion">
               <div class="card-body">
                 <p>
                   House dance was founded around 1980s in the night clubs of Chicago and New York. This
                   was the time when house music started becoming more popular, so people created their own way
-                  to dance to it. House mostly involves very fast paced footwork, smooth body waves and floor work. 
-                  It was also heavily influenced by salsa and other latin dances. House dancers use 
+                  to dance to it. House mostly involves very fast paced footwork, smooth body waves and floor work.
+                  It was also heavily influenced by salsa and other latin dances. House dancers use
                   steps in their routine and create their own variations to foundational moves.
                 </p>
               </div>
