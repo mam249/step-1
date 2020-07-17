@@ -12,3 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+$('.navbar-nav>li>a').on('click', function () {
+    $('.navbar-collapse').collapse('hide');
+});
