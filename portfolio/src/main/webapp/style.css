@@ -113,3 +113,15 @@ a:hover {
 .navbar-light {
   background-color:#e3f2fd !important;
 }
+
+#gallery-text {
+  padding-top: 40px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  #carousel-gallery {
+    margin-left:0px;
+    margin-right: 0px;
+  }  
+}
