@@ -1,16 +1,19 @@
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 650px;
+  width: 70%;
+  margin-top: 56px;
+  margin-bottom: 30px;
 }
 
-#main-text-container {
-  margin-top: 10px;
+.section {
+  padding-top: 70px;
+  margin-bottom: 5px;
+}
+
+p {
   text-align: justify;
-  border-style: dotted;
-  border-color: #1b9ce5;
-  border-width: 2px;
-  padding: 10px;
+  padding: 5px;
 }
 
 #profile-pic {
@@ -26,7 +29,9 @@
 }
 
 body {
-  font-family: Helvetica
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  height: 100%;
 }
 
 #buttons {
@@ -40,7 +45,6 @@ body {
   background-color: #1b9ce5;
   border: none;
   color: white;
-  padding: 10px 30px;
   border-radius: 3px;
   width: 120px;
 }
@@ -49,10 +53,103 @@ body {
   background-color: #0074e1;
 }
 
-a {
+a, .btn-link:hover {
   color: #0074e1;
 }
 
 a:hover {
   color: #1b9ce5;
+}
+
+.scrollspy {
+  position: relative;
+  height: 100%;
+  margin-top: .5rem;
+  overflow: auto;
+}
+
+.card-deck {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.card {
+  margin-top: 15px;
+  margin-bottom: 15px !important;
+}
+
+.list-group-item {
+  width: 150px;
+}
+
+.card-footer, .card {
+  border-color: transparent !important;
+  border-radius: 0% !important;
+}
+
+.card {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+
+#dora-card {
+  background-color: #e9c3b8;
+}
+
+#au-card {
+  background-color: #224a54;
+  color: white;
+}
+
+#wacc-card {
+  background-color: black;
+  color: white;
+}
+
+.navbar-light {
+  background-color: #e3f2fd !important;
+}
+
+#gallery-text-card {
+  background-color: #e9c3b8;
+  margin-top: 3px !important;
+}
+
+#about-card {
+  background-color: #d7e0e5;
+  color: #26555d;
+}
+
+.card-header {
+  background-color: #3bab87;
+  border-radius: 0px !important;
+  color: white;
+  border: none;
+}
+
+#accordion {
+  border-radius: 0px !important;
+}
+
+.vertical-center-card {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-link {
+  color: white;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.nav-link, .nav-link:hover {
+  color: #26555d !important;
+}
+
+#carousel-gallery {
+  width: 70%;
+  margin: auto;
 }
