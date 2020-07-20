@@ -1,7 +1,7 @@
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  width: 60%;
   margin-top: 56px;
   margin-bottom: 30px;
 }
@@ -147,7 +147,7 @@ h1 {
 }
 
 #portfolio-title {
-  background:linear-gradient(330deg, #e05252 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #e05252 100%);
+  background: linear-gradient(330deg, #e05252 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #e05252 100%);
   background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -164,4 +164,10 @@ h3 {
 
 .blog-card-body {
   background-color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  #content {
+    width: 80%;
+  }
 }
