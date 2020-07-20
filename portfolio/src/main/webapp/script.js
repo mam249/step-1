@@ -23,7 +23,7 @@ $('.navbar-nav>li>a').on('click', function () {
  * Fetches a random fact from the server and adds it to the DOM.
  */
 async function getRandomFact() {
-  const response = await fetch('/data');
-  const quote = await response.text();
-  document.getElementById('fun-fact').innerText = quote;
+    const response = await fetch('/data');
+    const quote = await response.text();
+    document.getElementById('fun-fact').innerText = quote;
 }

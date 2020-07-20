@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns fun facts */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     private List<String> facts;
@@ -39,7 +39,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-     String fact = facts.get((int) (Math.random() * facts.size()));
+    String fact = facts.get((int) (Math.random() * facts.size()));
 
     response.setContentType("text/html;");
     response.getWriter().println(fact);
