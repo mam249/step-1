@@ -10,10 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,700;1,500&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dark-mode.css">
 </head>
 
-<body>
-  <nav id="navbar-sections" class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
+<body id="bootstrap-overrides">
+  <nav id="navbar-sections" class="navbar fixed-top navbar-expand-sm navbar-light">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="darkSwitch" />
+      <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+    </div>
     <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items"
       aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,16 +48,16 @@
 
     <div data-spy="scroll" data-target="#navbar-sections" data-offset="0" class="scrollspy">
       <div>
-        <h1 class="centered-text">Azhara's Portfolio</h1>
-        <p class="centered-text"><a href="https://linkedin.com/in/azhara-a" target="_blank">LinkedIn</a> | <a
+        <h1 class="text-center" id="portfolio-title">Azhara's Portfolio</h1>
+        <p class="text-center"><a href="https://linkedin.com/in/azhara-a" target="_blank">LinkedIn</a> | <a
             href="https://github.com/azhara-a" target="_blank"> GitHub</a></p>
-        <p class="centered-text">Hi! I'm Azhara. I'm a STEP Intern at Google</p>
+        <h5 class="text-center">Hi! I'm Azhara. I'm a STEP Intern at Google</h5>
         <img id="profile-pic" src="images/profile.jpg" />
       </div>
 
       <div id="about-me">
         <h1 class="section">About Me</h1>
-        <div class="card mb-3" id="about-card">
+        <div class="card" id="about-card">
           <div class="card-body">
             <p class="card-text">I'm a 2nd year Computing student at Imperial College London. I'm originally from
               Nur-Sultan, Kazakhstan.
@@ -61,9 +66,13 @@
               Computer Science, Economics and Standard Level: English Literature, Russian Literature,
               Theatre.
             </p>
-            <p class="card-text">People would tell me I had an unconventional subject package, but I really enjoyed all
-              the courses I took as I believe that each one of them taught something special to me.
+            <p class="card-text">Outside of academics, I enjoy dancing street dance styles and participating
+              in dance battles. My 3 favourite dance styles are waacking, locking and house. You can read more about
+              them
+              in my <a class="text-link" href="#blog">blog</a>.
             </p>
+            <button type="button" class="btn btn-dark" onclick="getRandomFact()">Press to see a random fun fact</button>
+            <p class="card-text" id="fun-fact"></p>
           </div>
         </div>
       </div>
@@ -71,28 +80,28 @@
 
       <div id="projects">
         <h1 class="section">Projects</h1>
-        <div class="card mb-3" id="dora-card">
+        <div class="card" id="dora-card">
           <div class="row no-gutters align-items-center">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <img src="images/dora.png" class="card-img" alt="dora">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
               <div class="card-body">
-                <h5 class="card-title text-center">Dora - Donation Management Web App</h5>
-                <p class="card-text">🏆 Top 2 out of 48 groups: Designing for Real People at Imperial</p>
-                <p class="card-text"> In a group of 4, built a donation management web application for
-                  a UK based charity Change 1’s Life. The charity aims to assist people in need
-                  around Sub-Saharan Africa by supplying any donations coming from individuals
-                  and companies. With Dora, members of the charity can view contents of donation
-                  boxes, control their storage and send personalised emails and pictures of
-                  distributed donations to donors.</p>
-                <p class="card-text">
-                  Tech Stack</p>
-                <ul>
-                  <li>Back-end: Flask Python</li>
-                  <li>React JS, HTML, CSS</li>
-                </ul>
-                <p class="card-text text-center"><small>May 2020 (2 months)</small></p>
+                <h5 class="card-title text-center">Dora - Donation Management Web App</h3>
+                  <p class="card-text">🏆 Top 2 out of 48 groups: 2nd Year Computing Group Project at Imperial</p>
+                  <p class="card-text"> In a group of 4, built a donation management web application for
+                    a UK based charity Change 1’s Life. The charity aims to assist people in need
+                    around Sub-Saharan Africa by supplying any donations coming from individuals
+                    and companies. With Dora, members of the charity can view contents of donation
+                    boxes, control their storage and send personalised emails and pictures of
+                    distributed donations to donors.</p>
+                  <p class="card-text">
+                    Tech Stack</p>
+                  <ul>
+                    <li>Back-end: Flask Python</li>
+                    <li>Front-end: React JS, HTML, CSS</li>
+                  </ul>
+                  <p class="card-text text-center"><small>May 2020 (2 months)</small></p>
               </div>
             </div>
           </div>
@@ -103,21 +112,21 @@
             <div class="card-body">
               <div class="my-auto   ">
 
-                <h5 class="card-titl text-center">au.pair - Incident Reporting Service</h5>
-                <p class="card-text">🏆 Best Community Hack at IC Hack 20</p>
-                <p class="card-text">In a group of 5, built a web app that receives footage of potential incidents,
-                  and the authorities are notified, or normal events. I was responsible for the front-end of the
-                  project.
-                </p>
-                <p class="card-text">
-                  Tech Stack</p>
-                <ul>
-                  <li>Back-end: Flask Python, node application that detects incidents using
-                    TensorFlow and collects the data from Meraki API</li>
-                  <li>React JS, HTML, CSS</li>
-                </ul>
-                <p class="card-text text-center"><small>February 2020 (1 day)</small>
-                </p>
+                <h5 class="card-title text-center">au.pair - Incident Reporting Service</h3>
+                  <p class="card-text">🏆 Best Community Hack at IC Hack 20</p>
+                  <p class="card-text">In a group of 5, built a web app that receives footage of potential incidents,
+                    and the authorities are notified, or normal events. I was responsible for the front-end of the
+                    project.
+                  </p>
+                  <p class="card-text">
+                    Tech Stack</p>
+                  <ul>
+                    <li>Back-end: Flask Python, data is collected from Meraki API
+                      and incidents are detected with TensorFlow</li>
+                    <li>Front-end: React JS, HTML, CSS</li>
+                  </ul>
+                  <p class="card-text text-center"><small>February 2020 (1 day)</small>
+                  </p>
               </div>
             </div>
 
@@ -127,15 +136,15 @@
           <div class="card" id="wacc-card">
             <div class="card-body align-items-center ">
               <div class="my-auto   ">
-                <h5 class="card-title text-center ">WACC Compiler</h5>
-                <p class="card-text"> In a group of 4, designed and developed a compiler for
-                  a programming language WACC, a variant of While. I implemented a semantic checker with a
-                  symbol table for the generation of the Abstract Syntax Tree. Some extra
-                  features I developed are function overloading and array bound analysis at compile time.</p>
-                <p class="card-text">
-                  Tech Stack: Kotlin
-                </p>
-                <p class="card-text text-center"><small>January 2020 (3 months)</small></p>
+                <h5 class="card-title text-center ">WACC Compiler</h3>
+                  <p class="card-text"> In a group of 4, designed and developed a compiler for
+                    a programming language WACC, a variant of While. I implemented a semantic checker with a
+                    symbol table for the generation of the Abstract Syntax Tree. Some extra
+                    features I developed are function overloading and array bound analysis at compile time.</p>
+                  <p class="card-text">
+                    Tech Stack: Kotlin
+                  </p>
+                  <p class="card-text text-center"><small>January 2020 (3 months)</small></p>
               </div>
             </div>
           </div>
@@ -143,6 +152,12 @@
       </div>
       <div id="gallery">
         <h1 class="section">Gallery</h1>
+        <div class="card" id="gallery-text-card">
+          <div class="card-body"> Whenever I travel anywhere, I always get fascinated by architecture and nature
+            surrounding me.
+            I like the process of finding a good angle and lighting to showcase the beauty of what I see.
+          </div>
+        </div>
         <div id="carousel-gallery" class="carousel slide " data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#carousel-gallery" data-slide-to="0" class="active"></li>
@@ -156,37 +171,37 @@
             <div class="carousel-item active" data-interval="10000">
               <img src="images/houses-hallstatt.jpg" class="d-block w-100" alt="houses">
               <div class="carousel-caption d-none d-md-block">
-                <h5>Hallstatt, Austria</h5>
+                <h3>Hallstatt, Austria</h3>
               </div>
             </div>
             <div class="carousel-item" data-interval="2000">
               <img src="images/lake-hallstatt.jpg" class="d-block w-100" alt="lake">
               <div class="carousel-caption d-none d-md-block">
-                <h5>Hallstatt, Austria</h5>
+                <h3>Hallstatt, Austria</h3>
               </div>
             </div>
             <div class="carousel-item">
               <img src="images/camden-london.JPG" class="d-block w-100" alt="camden">
               <div class="carousel-caption d-none d-md-block">
-                <h5>Camden, Londdon, UK</h5>
+                <h3>Camden, London, UK</h3>
               </div>
             </div>
             <div class="carousel-item">
               <img src="images/nathistory-london.jpg" class="d-block w-100" alt="nat-history-museum">
               <div class="carousel-caption d-none d-md-block">
-                <h5>Natural History Museum, Londdon, UK</h5>
+                <h3>Natural History Museum, London, UK</h3>
               </div>
             </div>
             <div class="carousel-item">
               <img src="images/vanda-london.jpg" class="d-block w-100" alt="v-and-a-museum">
               <div class="carousel-caption d-none d-md-block">
-                <h5>Victoria and Albert Museum, Londdon, UK</h5>
+                <h3>Victoria and Albert Museum, London, UK</h3>
               </div>
             </div>
             <div class="carousel-item">
               <img src="images/prater-vienna.JPG" class="d-block w-100" alt="prater">
               <div class="carousel-caption d-none d-md-block">
-                <h5>Prater, Vienna, Austria</h5>
+                <h3>Prater, Vienna, Austria</h3>
               </div>
             </div>
           </div>
@@ -200,29 +215,24 @@
           </a>
         </div>
 
-        <div class="card mb-3" id="gallery-text-card">
-          <div class="card-body"> Whenever I travel anywhere, I always get fascinated by architecture and nature
-            surrounding me.
-            I like the process of finding a good angle and lighting to showcase the beauty of what I see.
-          </div>
-        </div>
+
       </div>
 
       <div id="blog">
         <h1 class="section">Blog</h1>
         <div id="accordion">
-          <div class="card">
+          <div class="card bg-transparent">
             <div class="card-header" id="blog-one">
               <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-one" aria-expanded="true"
                   aria-controls="collapse-one">
                   My favourite dance styles
                 </button>
-              </h5>
+                </h3>
             </div>
 
             <div id="collapse-one" class="collapse show blog-card" aria-labelledby="blog-one" data-parent="#accordion">
-              <div class="card-body">
+              <div class="card-body blog-card-body">
                 <p>Most people probably don't know what <strong>waacking, locking and house</strong> are. Well, these 3
                   things
                   are my escape from all the routine work I get from everyday life. These 3 things
@@ -233,63 +243,64 @@
             </div>
           </div>
 
-          <div class="card">
+          <div class="card bg-transparent">
             <div class="card-header" id="blog-two">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-two"
                   aria-expanded="false" aria-controls="collapse-two">
                   Waacking
                 </button>
-              </h5>
+                </h3>
             </div>
             <div id="collapse-two" class="collapse blog-card" aria-labelledby="blog-two" data-parent="#accordion">
               <div class="card-body">
-                <p> Waacking was originated in the 1970s on the west coast in the US. Waacking is
-                  usually described as a feminine dance, but surprisingly, it was founded by the gay community
+                <p> Waacking was originated in the 1970s on the west coast in the US. Waacking was founded
+                  by the LGBTQ+ community
                   to express their feelings and emotions. Waacking music
-                  is usually disco, funk and female vocals. As for the moves, waackers, people
+                  is usually disco and funk with vocals. As for the moves, waackers, people
                   who dance waacking, use their arms and hands in a very fast pace to demonstrate the melody.</p>
               </div>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card bg-transparent">
             <div class="card-header" id="blog-three">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-three"
                   aria-expanded="false" aria-controls="collapse-three">
                   Locking
                 </button>
-              </h5>
+                </h3>
             </div>
             <div id="collapse-three" class="collapse blog-card" aria-labelledby="blog-three" data-parent="#accordion">
-              <div class="card-body">
+              <div class="card-body blog-card-body">
                 <p> Locking came to life in the 1960s in the US when its founder, Don Campbell, accidentally
                   created a new move from a hip hop move "Robot Shuffle". Like waacking, locking is danced to
-                  funky and happy music. Lockers can be recognised because of their "locking" moves which
-                  are freezing from a fast movement and "locking" in a position by holding it for a short period of time
+                  funky and happy music. Lockers can be recognised because of their "locking" moves. These moves
+                  originate from a concept of freezing from a fast movement and "locking" in a position
+                  by holding it for a short period of time
                   which is then followed by their fast moves.</p>
               </div>
             </div>
           </div>
 
-          <div class="card">
+          <div class="card bg-transparent">
             <div class="card-header" id="blog-four">
               <h5 class="mb-0">
                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-four"
                   aria-expanded="false" aria-controls="collapse-four">
                   House
                 </button>
-              </h5>
+                </h3>
             </div>
             <div id="collapse-four" class="collapse blog-card" aria-labelledby="blog-four" data-parent="#accordion">
-              <div class="card-body">
+              <div class="card-body blog-card-body">
                 <p>
                   House dance was founded around 1980s in the night clubs of Chicago and New York. This
                   was the time when house music started becoming more popular, so people created their own way
                   to dance to it. House mostly involves very fast paced footwork, smooth body waves and floor work.
                   It was also heavily influenced by salsa and other latin dances. House dancers use
-                  steps in their routine and create their own variations to foundational moves.
+                  steps in their routine and create their own variations of foundational moves.
                 </p>
               </div>
             </div>
@@ -297,7 +308,6 @@
 
         </div>
       </div>
-      <p></p>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -310,6 +320,7 @@
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"></script>
   <script src="script.js"></script>
+  <script src="dark-mode-switch.min.js"></script>
 </body>
 
 </html>
