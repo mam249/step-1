@@ -35,20 +35,6 @@ body {
   padding: 10px;
 }
 
-.button {
-  outline: none;
-  transition-duration: 0.4s;
-  background-color: #1b9ce5;
-  border: none;
-  color: white;
-  border-radius: 3px;
-  width: 120px;
-}
-
-.button:hover {
-  background-color: #0074e1;
-}
-
 a, .btn-link:hover {
   color: #0074e1;
 }
@@ -64,28 +50,9 @@ a:hover {
   overflow: auto;
 }
 
-.card-deck {
-  margin-right: 0px;
-  margin-left: 0px;
-}
-
-.card {
-  margin-top: 15px;
-  margin-bottom: 15px !important;
-}
-
-.list-group-item {
-  width: 150px;
-}
-
 .card-footer, .card {
-  border-color: transparent !important;
-  border-radius: 0% !important;
-}
-
-.card {
-  margin-bottom: 0px !important;
-  margin-top: 0px !important;
+  border-color: transparent;
+  border-radius: 0%;
 }
 
 #dora-card {
@@ -103,12 +70,12 @@ a:hover {
 }
 
 .navbar-light {
-  background-color: #e3f2fd !important;
+  background-color: #e3f2fd;
 }
 
 #gallery-text-card {
   background-color: #e9c3b8;
-  margin-bottom: 3px !important;
+  margin-bottom: 3px;
 }
 
 #about-card {
@@ -116,21 +83,11 @@ a:hover {
   color: #26555d;
 }
 
-.card-header {
+#bootstrap-overrides .card-header {
   background-color: #3bab87;
-  border-radius: 0px !important;
+  border-radius: 0px;
   color: white;
   border: none;
-}
-
-#accordion {
-  border-radius: 0px !important;
-}
-
-.vertical-center-card {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .btn-link {
@@ -139,11 +96,11 @@ a:hover {
 
 h1 {
   font-weight: 700;
-  font-size: 3.25rem !important;
+  font-size: 3.25rem;
 }
 
-.nav-link, .nav-link:hover {
-  color: #26555d !important;
+.navbar-light .navbar-nav .nav-link, .nav-link:hover {
+  color: #26555d;
 }
 
 #portfolio-title {
@@ -154,11 +111,11 @@ h1 {
 }
 
 .card-body {
-  padding: 1.75rem !important;
+  padding: 1.75rem;
 }
 
 h3 {
-  font-size: 1.75rem !important;
+  font-size: 1.75rem;
   font-weight: 700;
 }
 
