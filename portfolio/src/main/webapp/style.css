@@ -171,3 +171,8 @@ h3 {
     width: 80%;
   }
 }
+
+.text-link {
+  color: #26555d;
+  text-decoration: underline;
+}

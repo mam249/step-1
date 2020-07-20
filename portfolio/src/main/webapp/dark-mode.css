@@ -27,7 +27,8 @@
     border: 1.5px solid #121212 !important;
 }
 
-[data-theme="dark"] .card-text, [data-theme="dark"] .blog-card-body {
+[data-theme="dark"] .card-text, [data-theme="dark"] .blog-card-body, 
+[data-theme="dark"] .text-link, [data-theme="dark"] ul {
     color: rgba(238, 238, 238, 0.8) !important;
 }
 
