@@ -12,6 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * On mobile, collapses the navbar if a link is clicked
+ */
 $('.navbar-nav>li>a').on('click', function () {
     $('.navbar-collapse').collapse('hide');
 });
+
+/**
+ * Fetches a random fact from the server and adds it to the DOM.
+ */
+async function getRandomFact() {
+  const response = await fetch('/data');
+  const quote = await response.text();
+  document.getElementById('fun-fact').innerText = quote;
+}
