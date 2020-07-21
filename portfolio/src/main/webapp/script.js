@@ -22,8 +22,20 @@ $('.navbar-nav>li>a').on('click', function () {
 /**
  * Fetches a random fact from the server and adds it to the DOM.
  */
-async function getRandomFact() {
-    const response = await fetch('/data');
-    const quote = await response.text();
-    document.getElementById('fun-fact').innerText = quote;
+async function getRandomFacts() {
+    const funFactElement = document.getElementById('fun-fact');
+    fetch('/data').then(response => response.json()).then((facts) => {
+    funFactElement.innerHTML = '<ul>';
+    for (let i = 0; i < facts.length; i++) {
+        funFactElement.appendChild(createListElement(facts[i]));
+      }
+    funFactElement.appendChild('</ul>');    
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
