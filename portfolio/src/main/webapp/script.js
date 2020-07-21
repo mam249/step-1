@@ -26,7 +26,7 @@ function getComments() {
   const commentsElement = document.getElementById('comments-text');
   fetch('/data').then(response => response.json()).then((comments) => {
     commentsElement.innerHTML = '';
-    for (let i = 0; i < facts.length; i++) {
+    for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(createParagraph(comments[i]));
     }
   });
