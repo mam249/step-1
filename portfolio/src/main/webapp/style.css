@@ -62,6 +62,7 @@ a:hover {
 #au-card {
   background-color: #224a54;
   color: white;
+  margin-bottom: 0px;
 }
 
 #wacc-card {
@@ -78,7 +79,7 @@ a:hover {
   margin-bottom: 3px;
 }
 
-#about-card {
+#about-card, #comments-card {
   background-color: #d7e0e5;
   color: #26555d;
 }
@@ -132,4 +133,8 @@ h3 {
 .text-link {
   color: #26555d;
   text-decoration: underline;
+}
+
+form {
+  padding: 5px;
 }

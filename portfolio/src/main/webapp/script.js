@@ -16,14 +16,26 @@
  * On mobile, collapses the navbar if a link is clicked
  */
 $('.navbar-nav>li>a').on('click', function () {
-    $('.navbar-collapse').collapse('hide');
+  $('.navbar-collapse').collapse('hide');
 });
 
 /**
  * Fetches a random fact from the server and adds it to the DOM.
  */
-async function getRandomFact() {
-    const response = await fetch('/data');
-    const quote = await response.text();
-    document.getElementById('fun-fact').innerText = quote;
+function getComments() {
+  const commentsElement = document.getElementById('comments-text');
+  fetch('/data').then(response => response.json()).then((comments) => {
+    commentsElement.innerHTML = '';
+    for (let i = 0; i < comments.length; i++) {
+      commentsElement.appendChild(createParagraph(comments[i]));
+    }
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createParagraph(text) {
+  const paragraph = document.createElement('p');
+  paragraph.setAttribute('class', 'card-text');
+  paragraph.innerText = text;
+  return paragraph;
 }

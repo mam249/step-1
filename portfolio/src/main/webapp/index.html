@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="dark-mode.css">
 </head>
 
-<body id="bootstrap-overrides">
+<body id="bootstrap-overrides" onload="getComments()">
   <nav id="navbar-sections" class="navbar fixed-top navbar-expand-sm navbar-light">
     <div class="custom-control custom-switch">
       <input type="checkbox" class="custom-control-input" id="darkSwitch" />
@@ -38,6 +38,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#blog">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#comments">Comment</a>
         </li>
       </ul>
     </div>
@@ -71,8 +74,6 @@
               them
               in my <a class="text-link" href="#blog">blog</a>.
             </p>
-            <button type="button" class="btn btn-dark" onclick="getRandomFact()">Press to see a random fun fact</button>
-            <p class="card-text" id="fun-fact"></p>
           </div>
         </div>
       </div>
@@ -302,6 +303,30 @@
                   It was also heavily influenced by salsa and other latin dances. House dancers use
                   steps in their routine and create their own variations of foundational moves.
                 </p>
+              </div>
+            </div>
+          </div>
+
+          <div id="comments">
+            <h1 class="section">Comments</h1>
+            <div class="card" id="comments-card">
+              <div class="card-body">
+                <h3>Previous comments</h3>
+                <div id="comments-text"></div>
+                <h3>Submit a comment</h3>
+                <form action="/data" method="POST">
+                  <div class="form-group">
+                    <label for="inputName">Name</label>
+                    <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter name"
+                      required>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputComment">Comment</label>
+                    <input type="text" class="form-control" id="inputComment" name="comment" placeholder="Enter comment"
+                      required>
+                  </div>
+                  <button type="submit" class="btn btn-dark">Submit</button>
+                </form>
               </div>
             </div>
           </div>

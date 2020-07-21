@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,23 +26,19 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns fun facts */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    private List<String> facts;
-
-  @Override
-  public void init() {
-    facts = new ArrayList<>();
-    facts.add("I once ate fried crickets! They tasted like fried food. "
-    + "Nothing special.");
-    facts.add("My favourite animal is the panda :)");
-    facts.add("I finished music school and my instrument was piano. Funny enough, "
-    + "I only started liking playing it once I left the music school.");
-  }
+  private List<String> comments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String fact = facts.get((int) (Math.random() * facts.size()));
+    Gson gson = new Gson();
+    String json = gson.toJson(comments);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
 
-    response.setContentType("text/html;");
-    response.getWriter().println(fact);
+   @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    comments.add(request.getParameter("name") + ": " + request.getParameter("comment"));
+    response.sendRedirect("/index.html#comments");
   }
 }

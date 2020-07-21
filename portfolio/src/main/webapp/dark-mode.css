@@ -25,3 +25,9 @@
     border-color: rgba(0, 0, 0, 0.3);
     background-color: #333;
 }
+
+[data-theme="dark"] .form-control {
+    border: rgb(56, 56, 56);
+    background-color: rgb(56, 56, 56);
+    color: rgba(238, 238, 238, 0.8);
+}
