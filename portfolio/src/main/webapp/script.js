@@ -22,7 +22,7 @@ $('.navbar-nav>li>a').on('click', function () {
 /**
  * Fetches a random fact from the server and adds it to the DOM.
  */
-async function getRandomFacts() {
+function getRandomFacts() {
     const funFactElement = document.getElementById('fun-fact');
     fetch('/data').then(response => response.json()).then((facts) => {
     funFactElement.innerHTML = '<ul>';
