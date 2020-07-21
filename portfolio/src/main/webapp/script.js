@@ -16,19 +16,19 @@
  * On mobile, collapses the navbar if a link is clicked
  */
 $('.navbar-nav>li>a').on('click', function () {
-    $('.navbar-collapse').collapse('hide');
+  $('.navbar-collapse').collapse('hide');
 });
 
 /**
  * Fetches a random fact from the server and adds it to the DOM.
  */
 function getComments() {
-    const funFactElement = document.getElementById('comments-text');
-    fetch('/data').then(response => response.json()).then((facts) => {
-    funFactElement.innerHTML = '';
+  const commentsElement = document.getElementById('comments-text');
+  fetch('/data').then(response => response.json()).then((comments) => {
+    commentsElement.innerHTML = '';
     for (let i = 0; i < facts.length; i++) {
-        funFactElement.appendChild(createParagraph(facts[i]));
-      }
+      commentsElement.appendChild(createParagraph(comments[i]));
+    }
   });
 }
 

@@ -26,29 +26,19 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns fun facts */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    private List<String> facts;
-
-  @Override
-  public void init() {
-    facts = new ArrayList<>();
-    facts.add("I once ate fried crickets! They tasted like fried food. "
-    + "Nothing special.");
-    facts.add("My favourite animal is the panda :)");
-    facts.add("I finished music school and my instrument was piano. Funny enough, "
-    + "I only started liking playing it once I left the music school.");
-  }
+  private List<String> comments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Gson gson = new Gson();
-    String json = gson.toJson(facts);
+    String json = gson.toJson(comments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    facts.add(request.getParameter("comment"));
+    comments.add(request.getParameter("name") + ": " + request.getParameter("comment"));
     response.sendRedirect("/index.html#comments");
   }
 }
