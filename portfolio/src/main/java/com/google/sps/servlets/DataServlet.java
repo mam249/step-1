@@ -45,4 +45,10 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
+
+   @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    facts.add(request.getParameter("comment"));
+    response.sendRedirect("/index.html#comments");
+  }
 }

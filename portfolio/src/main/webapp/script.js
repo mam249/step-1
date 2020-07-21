@@ -22,20 +22,20 @@ $('.navbar-nav>li>a').on('click', function () {
 /**
  * Fetches a random fact from the server and adds it to the DOM.
  */
-function getRandomFacts() {
-    const funFactElement = document.getElementById('fun-fact');
+function getComments() {
+    const funFactElement = document.getElementById('comments-text');
     fetch('/data').then(response => response.json()).then((facts) => {
-    funFactElement.innerHTML = '<ul>';
+    funFactElement.innerHTML = '';
     for (let i = 0; i < facts.length; i++) {
-        funFactElement.appendChild(createListElement(facts[i]));
+        funFactElement.appendChild(createParagraph(facts[i]));
       }
-    funFactElement.appendChild('</ul>');    
   });
 }
 
 /** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createParagraph(text) {
+  const paragraph = document.createElement('p');
+  paragraph.setAttribute('class', 'card-text');
+  paragraph.innerText = text;
+  return paragraph;
 }
