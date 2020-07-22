@@ -24,7 +24,6 @@ $('.navbar-nav>li>a').on('click', function () {
  */
 function getComments() {
   const isLimitSet = null !== localStorage.getItem("limit");
-  console.log(localStorage.getItem("limit"));
   const limit = isLimitSet ? localStorage.getItem("limit") :
             document.getElementById('commentLimit').value;
   localStorage.setItem("limit", limit);
@@ -58,8 +57,6 @@ function createParagraph(text) {
 
 async function deleteComments() {
   const request = new Request('/delete-data', {method: 'POST'});
-  const response = await fetch(request);
-  const text = await response.text();
-  console.log(text === "Done");
+  await fetch(request);
   getComments();
 }
