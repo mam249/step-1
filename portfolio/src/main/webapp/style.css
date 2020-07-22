@@ -138,3 +138,11 @@ h3 {
 form {
   padding: 5px;
 }
+
+.row {
+    margin-left: 0px;
+}
+
+.custom-select {
+    width: 60px;
+}

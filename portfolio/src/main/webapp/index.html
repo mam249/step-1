@@ -312,6 +312,16 @@
             <div class="card" id="comments-card">
               <div class="card-body">
                 <h3>Previous comments</h3>
+                <div class="row">
+                    <p class="card-text">Display</p>
+                    <select class="custom-select" id="commentLimit" onchange="getComments()">
+                        <option selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">5</option>
+                        <option value="10">10</option>
+                    </select>
+                    <p class="card-text">comments</p>
+                </div>
                 <div id="comments-text"></div>
                 <h3>Submit a comment</h3>
                 <form action="/data" method="POST">

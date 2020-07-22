@@ -24,7 +24,8 @@ $('.navbar-nav>li>a').on('click', function () {
  */
 function getComments() {
   const commentsElement = document.getElementById('comments-text');
-  fetch('/data').then(response => response.json()).then((comments) => {
+  const limit = document.getElementById('commentLimit').value;
+  fetch('/data?limit=' + limit).then(response => response.json()).then((comments) => {
     commentsElement.innerHTML = '';
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(createParagraph(comments[i]));

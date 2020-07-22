@@ -42,7 +42,13 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
 
     List<Comment> comments = new ArrayList<>();
+    int limit = Integer.parseInt(request.getParameter("limit"));
     for (Entity entity : results.asIterable()) {
+      if (limit == 0) {
+          break;
+      }
+      limit--;
+      
       long id = entity.getKey().getId();
       String name = (String) entity.getProperty("name");
       String cmt = (String) entity.getProperty("comment");
