@@ -40,3 +40,11 @@ function createParagraph(text) {
   paragraph.innerText = text.name + ": " + text.comment;
   return paragraph;
 }
+
+async function deleteComments() {
+  const request = new Request('/delete-data', {method: 'POST'});
+  const response = await fetch(request);
+  const text = await response.text();
+  console.log(text);
+  getComments();
+}
