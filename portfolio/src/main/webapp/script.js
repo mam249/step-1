@@ -28,6 +28,7 @@ function getComments() {
     commentsElement.innerHTML = '';
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(createParagraph(comments[i]));
+      console.log(comments[i]);
     }
   });
 }
@@ -36,6 +37,6 @@ function getComments() {
 function createParagraph(text) {
   const paragraph = document.createElement('p');
   paragraph.setAttribute('class', 'card-text');
-  paragraph.innerText = text;
+  paragraph.innerText = text.name + ": " + text.comment;
   return paragraph;
 }
