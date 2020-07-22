@@ -23,8 +23,23 @@ $('.navbar-nav>li>a').on('click', function () {
  * Fetches a random fact from the server and adds it to the DOM.
  */
 function getComments() {
+  const isLimitSet = null !== localStorage.getItem("limit");
+  console.log(localStorage.getItem("limit"));
+  const limit = isLimitSet ? localStorage.getItem("limit") :
+            document.getElementById('commentLimit').value;
+  localStorage.setItem("limit", limit);
+  document.getElementById("commentLimit").value = limit;
+  fetchComments(limit);
+}
+
+function getCommentsWithLimit() {
+    const limit = document.getElementById('commentLimit').value;
+    localStorage.setItem("limit", limit);
+    fetchComments(limit);
+}
+
+function fetchComments(limit) {
   const commentsElement = document.getElementById('comments-text');
-  const limit = document.getElementById('commentLimit').value;
   fetch('/data?limit=' + limit).then(response => response.json()).then((comments) => {
     commentsElement.innerHTML = '';
     for (let i = 0; i < comments.length; i++) {
@@ -45,6 +60,6 @@ async function deleteComments() {
   const request = new Request('/delete-data', {method: 'POST'});
   const response = await fetch(request);
   const text = await response.text();
-  console.log(text);
+  console.log(text === "Done");
   getComments();
 }
