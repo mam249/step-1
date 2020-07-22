@@ -28,7 +28,6 @@ function getComments() {
     commentsElement.innerHTML = '';
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(createParagraph(comments[i]));
-      console.log(comments[i]);
     }
   });
 }
