@@ -90,7 +90,6 @@ async function displayCommentsForm() {
   } else {
       deleteCommentsButton.style.display = "none";
   }
-  console.log(loginInfo);
 }
 
 function bodyOnLoad() {
