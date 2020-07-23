@@ -1,9 +1,23 @@
+/* Copyright 2020 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */
+
 [data-theme="dark"] {
     background-color: #121212;
     color: rgba(238, 238, 238, 0.9);
 }
 
-[data-theme="dark"] #about-me .card, [data-theme="dark"] .blog-card-body, [data-theme="dark"] #projects .card, [data-theme="dark"] #gallery .card {
+[data-theme="dark"] #about-me .card, [data-theme="dark"] #comments .card, [data-theme="dark"] .blog-card-body, [data-theme="dark"] #projects .card, [data-theme="dark"] #gallery .card {
     background-color: rgb(33, 33, 33);
 }
 
@@ -11,7 +25,7 @@
     border: 1.5px solid #121212;
 }
 
-[data-theme="dark"] .card-text, [data-theme="dark"] .blog-card-body, [data-theme="dark"] .text-link, [data-theme="dark"] ul {
+[data-theme="dark"] .card-text, [data-theme="dark"] .blog-card-body, [data-theme="dark"] .text-link, [data-theme="dark"] ul, [data-theme="dark"] #comments-card .card-body {
     color: rgba(238, 238, 238, 0.8);
 }
 
@@ -26,7 +40,7 @@
     background-color: #333;
 }
 
-[data-theme="dark"] .form-control {
+[data-theme="dark"] .form-control, [data-theme="dark"] .custom-select {
     border: rgb(56, 56, 56);
     background-color: rgb(56, 56, 56);
     color: rgba(238, 238, 238, 0.8);

@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,12 +19,33 @@ $('.navbar-nav>li>a').on('click', function () {
   $('.navbar-collapse').collapse('hide');
 });
 
-/**
- * Fetches a random fact from the server and adds it to the DOM.
+/* On the first load of the page, 
+ * if localStorage has an item "limit" with value N, 
+ * then fetches N comments 
+ * else fetches the default number set by the page
  */
 function getComments() {
+  const isLimitSet = null !== localStorage.getItem("limit");
+  const limit = isLimitSet ? localStorage.getItem("limit") :
+            document.getElementById('commentLimit').value;
+  localStorage.setItem("limit", limit);
+  document.getElementById("commentLimit").value = limit;
+  fetchComments(limit);
+}
+
+/* On change of selected limit of displayed comments, 
+ * sets the new limit in localStorage and fetches the selected number of comments
+ */
+function getCommentsWithLimit() {
+    const limit = document.getElementById('commentLimit').value;
+    localStorage.setItem("limit", limit);
+    fetchComments(limit);
+}
+
+/* Given a limit N, fetches N comments from /data and puts results into comments-text element */
+function fetchComments(limit) {
   const commentsElement = document.getElementById('comments-text');
-  fetch('/data').then(response => response.json()).then((comments) => {
+  fetch('/data?limit=' + limit).then(response => response.json()).then((comments) => {
     commentsElement.innerHTML = '';
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(createParagraph(comments[i]));
@@ -32,10 +53,17 @@ function getComments() {
   });
 }
 
-/** Creates an <li> element containing text. */
+/* Creates <p> element in format: "name: comment" */
 function createParagraph(text) {
   const paragraph = document.createElement('p');
   paragraph.setAttribute('class', 'card-text');
-  paragraph.innerText = text;
+  paragraph.innerText = text.name + ": " + text.comment;
   return paragraph;
+}
+
+/* Deletes all comments by calling /delete-data and refreshes comments-text element */
+async function deleteComments() {
+  const request = new Request('/delete-data', {method: 'POST'});
+  await fetch(request);
+  getComments();
 }
