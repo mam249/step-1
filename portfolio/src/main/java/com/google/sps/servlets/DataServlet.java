@@ -31,24 +31,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns fun facts */
+/* Servlet that: 
+ * in Get request returns N comments from Datastore where N is a parameter called limit; 
+ * in Post request adds a comment entity into the Datastore 
+ */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private static final String PROPERTY_NAME = "name";
+  private static final String PROPERTY_COMMENT = "comment";
+  private static final String PROPERTY_TIMESTAMP = "timestamp";
+  private static final String ENTITY_COMMENT = "Comment";
+  private static final String PARAMETER_LIMIT = "limit";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    Query query = new Query(ENTITY_COMMENT).addSort(PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    int limit = Integer.parseInt(request.getParameter("limit"));
+    int limit = Integer.parseInt(request.getParameter(PARAMETER_LIMIT));
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(limit));
 
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results) {
       long id = entity.getKey().getId();
-      String name = (String) entity.getProperty("name");
-      String cmt = (String) entity.getProperty("comment");
-      long timestamp = (long) entity.getProperty("timestamp");
+      String name = (String) entity.getProperty(PROPERTY_NAME);
+      String cmt = (String) entity.getProperty(PROPERTY_COMMENT);
+      long timestamp = (long) entity.getProperty(PROPERTY_TIMESTAMP);
 
       Comment comment = new Comment(id, name, cmt, timestamp);
       comments.add(comment);
@@ -62,12 +70,12 @@ public class DataServlet extends HttpServlet {
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Entity commentEntity = new Entity("Comment");
+    Entity commentEntity = new Entity(ENTITY_COMMENT);
     long timestamp = System.currentTimeMillis();
 
-    commentEntity.setProperty("name", request.getParameter("name"));
-    commentEntity.setProperty("comment", request.getParameter("comment"));
-    commentEntity.setProperty("timestamp", timestamp);
+    commentEntity.setProperty(PROPERTY_NAME, request.getParameter(PROPERTY_NAME));
+    commentEntity.setProperty(PROPERTY_COMMENT, request.getParameter(PROPERTY_COMMENT));
+    commentEntity.setProperty(PROPERTY_TIMESTAMP, timestamp);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);

@@ -29,13 +29,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns fun facts */
+/* Servlet that deletes all comments in the Post request */
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {
+  private static final String ENTITY_COMMENT = "Comment";
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
+    Query query = new Query(ENTITY_COMMENT);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
