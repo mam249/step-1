@@ -67,3 +67,4 @@ async function deleteComments() {
   await fetch(request);
   getComments();
 }
+
