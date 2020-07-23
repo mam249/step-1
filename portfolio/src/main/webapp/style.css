@@ -149,8 +149,8 @@ h3 {
   text-decoration: underline;
 }
 
-form {
-  padding: 5px;
+#comment-form, #previous-comments, #login-form {
+    padding: 5px;
 }
 
 .row {

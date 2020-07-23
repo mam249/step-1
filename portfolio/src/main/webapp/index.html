@@ -349,7 +349,8 @@ THE SOFTWARE. -->
             <div class="card" id="comments-card">
               <div class="card-body">
                 <h3>Previous comments</h3>
-                <div class="row">
+                <div id="previous-comments">
+                  <div class="row">
                     <p class="card-text">Display</p>
                     <select class="custom-select" id="commentLimit" onchange="getCommentsWithLimit()">
                         <option selected value="1">1</option>
@@ -358,9 +359,10 @@ THE SOFTWARE. -->
                         <option value="10">10</option>
                     </select>
                     <p class="card-text">comments</p>
+                  </div>
+                  <div id="comments-text"></div>
+                  <button class="btn btn-dark" onclick="deleteComments()">Delete all comments</button>
                 </div>
-                <div id="comments-text"></div>
-                <button class="btn btn-dark" onclick="deleteComments()">Delete all comments</button>
                 <h3>Submit a comment</h3>
                 <div id="comment-form">
                 <form action="/data" method="POST">

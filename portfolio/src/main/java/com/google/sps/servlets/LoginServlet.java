@@ -26,15 +26,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /* Servlet that:
  * in Get request, returns login information 
- * in Post request,
  */
 @WebServlet("/login-status")
 public class LoginServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
-
     UserService userService = UserServiceFactory.getUserService();
     String url;
     if (userService.isUserLoggedIn()) {
