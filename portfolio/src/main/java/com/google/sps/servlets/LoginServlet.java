@@ -17,13 +17,17 @@ package com.google.sps.servlets;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.data.LoginInfo;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/* Servlet that returns login status */
+/* Servlet that:
+ * in Get request, returns login information 
+ * in Post request,
+ */
 @WebServlet("/login-status")
 public class LoginServlet extends HttpServlet {
 
@@ -32,22 +36,18 @@ public class LoginServlet extends HttpServlet {
     response.setContentType("text/html");
 
     UserService userService = UserServiceFactory.getUserService();
+    String url;
+    if (userService.isUserLoggedIn()) {
+      String urlToRedirectToAfterUserLogsOut = "/";
+      url = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+    } else {
+      String urlToRedirectToAfterUserLogsIn = "/index.html#comments";
+      url = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+    }
+
+    LoginInfo loginInfo = new LoginInfo(userService.isUserLoggedIn(), url);
     Gson gson = new Gson();
     response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(userService.isUserLoggedIn()));
-    // if (userService.isUserLoggedIn()) {
-    //   String userEmail = userService.getCurrentUser().getEmail();
-    //   String urlToRedirectToAfterUserLogsOut = "/";
-    //   String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-
-    //   response.getWriter().println("<p>Hello " + userEmail + "!</p>");
-    //   response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
-    // } else {
-    //   String urlToRedirectToAfterUserLogsIn = "/";
-    //   String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-
-    //   response.getWriter().println("<p>Hello stranger.</p>");
-    //   response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
-    // }
+    response.getWriter().println(gson.toJson(loginInfo));
   }
 }

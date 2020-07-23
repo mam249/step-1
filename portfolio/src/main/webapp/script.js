@@ -68,3 +68,25 @@ async function deleteComments() {
   getComments();
 }
 
+async function displayCommentsForm() {
+  const response = await fetch("/login-status");
+  const loginInfo = await response.json();
+  const loginForm = document.getElementById('login-form');
+  const commentForm = document.getElementById('comment-form');
+
+  if (loginInfo.isLoggedIn) {
+      loginForm.style.display = "none";
+      commentForm.style.display = "block";
+      document.getElementById('logout-url').href = loginInfo.url;
+  } else {
+      loginForm.style.display = "block";
+      commentForm.style.display = "none";
+      document.getElementById('login-url').href = loginInfo.url; 
+  }
+}
+
+function bodyOnLoad() {
+  getComments();
+  displayCommentsForm();
+}
+

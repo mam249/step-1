@@ -50,7 +50,7 @@ THE SOFTWARE. -->
   <link rel="stylesheet" href="dark-mode.css">
 </head>
 
-<body id="bootstrap-overrides" onload="getComments()">
+<body id="bootstrap-overrides" onload="bodyOnLoad()">
   <nav id="navbar-sections" class="navbar fixed-top navbar-expand-sm navbar-light">
     <div class="custom-control custom-switch">
       <input type="checkbox" class="custom-control-input" id="darkSwitch" />
@@ -376,6 +376,10 @@ THE SOFTWARE. -->
                   </div>
                   <button type="submit" class="btn btn-dark">Submit</button>
                 </form>
+                <a id="logout-url">Log out</a>
+                </div>
+                <div id="login-form">
+                    <a id="login-url">Login</a>
                 </div>
               </div>
             </div>
