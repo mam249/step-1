@@ -17,10 +17,12 @@ package com.google.sps.data;
 public final class LoginInfo {
 
   private final boolean isLoggedIn;
+  private final boolean isAdmin;
   private final String url;
 
-  public LoginInfo(boolean isLoggedIn, String url) {
+  public LoginInfo(boolean isLoggedIn, boolean isAdmin, String url) {
     this.isLoggedIn = isLoggedIn;
+    this.isAdmin = isAdmin;
     this.url = url;
   }
 }

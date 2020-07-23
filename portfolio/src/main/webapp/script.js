@@ -83,6 +83,14 @@ async function displayCommentsForm() {
       commentForm.style.display = "none";
       document.getElementById('login-url').href = loginInfo.url; 
   }
+
+  const deleteCommentsButton = document.getElementById('delete-comments-btn');
+  if (loginInfo.isAdmin) {
+      deleteCommentsButton.style.display = "block";
+  } else {
+      deleteCommentsButton.style.display = "none";
+  }
+  console.log(loginInfo);
 }
 
 function bodyOnLoad() {
