@@ -68,6 +68,11 @@ async function deleteComments() {
   getComments();
 }
 
+/* If user is logged in: display comment submission form,
+ * If user is logged in and admin: display comment submission form 
+ *                                   and delete all comments button,
+ * else: display login link
+ */
 async function displayCommentsForm() {
   const response = await fetch("/login-status");
   const loginInfo = await response.json();

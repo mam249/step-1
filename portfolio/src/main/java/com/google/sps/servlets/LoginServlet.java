@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
       url = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
     }
 
-    boolean isAdmin = userService.getCurrentUser().getEmail().equals(System.getenv().get("admin"));
+    boolean isAdmin = userService.isUserLoggedIn() && userService.isUserAdmin();
     LoginInfo loginInfo = new LoginInfo(userService.isUserLoggedIn(), isAdmin, url);
     Gson gson = new Gson();
     response.setContentType("application/json;");

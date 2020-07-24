@@ -48,7 +48,7 @@ public class DeleteDataServlet extends HttpServlet {
 
     response.setContentType("application/json;");
     Gson gson = new Gson();
-    if (!userService.getCurrentUser().getEmail().equals(System.getenv().get("admin"))) {
+    if (!userService.isUserAdmin()) {
       response.getWriter().println(gson.toJson(false));
     }
     
