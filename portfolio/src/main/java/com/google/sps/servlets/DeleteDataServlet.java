@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/* Servlet that deletes all comments in the Post request */
+/* Servlet that in the Post request deletes all comments if the logged in user is admin */
 @WebServlet("/delete-data")
 public class DeleteDataServlet extends HttpServlet {
   private static final String ENTITY_COMMENT = "Comment";
@@ -50,6 +50,7 @@ public class DeleteDataServlet extends HttpServlet {
     Gson gson = new Gson();
     if (!userService.isUserAdmin()) {
       response.getWriter().println(gson.toJson(false));
+      return;
     }
     
     Query query = new Query(ENTITY_COMMENT);

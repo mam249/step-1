@@ -64,8 +64,14 @@ function createParagraph(text) {
 /* Deletes all comments by calling /delete-data and refreshes comments-text element */
 async function deleteComments() {
   const request = new Request('/delete-data', {method: 'POST'});
-  await fetch(request);
-  getComments();
+  const response = await fetch(request);
+  const isDeleted = await response.json();
+
+  if (isDeleted) {
+    getComments();
+  } else {
+    $('#adminModal').modal('toggle');
+  }
 }
 
 /* If user is logged in: display comment submission form,

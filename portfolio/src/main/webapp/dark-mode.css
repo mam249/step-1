@@ -17,7 +17,8 @@ limitations under the License. */
     color: rgba(238, 238, 238, 0.9);
 }
 
-[data-theme="dark"] #about-me .card, [data-theme="dark"] #comments .card, [data-theme="dark"] .blog-card-body, [data-theme="dark"] #projects .card, [data-theme="dark"] #gallery .card {
+[data-theme="dark"] #about-me .card, [data-theme="dark"] #comments .card, [data-theme="dark"] .blog-card-body, [data-theme="dark"] #projects .card, [data-theme="dark"] #gallery .card,
+[data-theme="dark"]  .modal-content {
     background-color: rgb(33, 33, 33);
 }
 
@@ -45,3 +46,12 @@ limitations under the License. */
     background-color: rgb(56, 56, 56);
     color: rgba(238, 238, 238, 0.8);
 }
+
+[data-theme="dark"]  .modal-header {
+    border-bottom: none;
+}
+
+[data-theme="dark"]  .close {
+    color: white;
+}
+
