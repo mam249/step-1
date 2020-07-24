@@ -107,4 +107,3 @@ function bodyOnLoad() {
   getComments();
   displayCommentsForm();
 }
-
