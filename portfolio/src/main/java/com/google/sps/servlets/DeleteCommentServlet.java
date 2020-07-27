@@ -32,7 +32,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/* Servlet that in the Post request deletes all comments if the logged in user is admin */
+/* Servlet that in the Post request deletes a comment with id that was passed as a parameter
+ * The comment will be deleted only if the current user is the comment owner or admin */
 @WebServlet("/delete-mine")
 public class DeleteCommentServlet extends HttpServlet {
   private static final String ENTITY_COMMENT = "Comment";
