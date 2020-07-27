@@ -58,7 +58,8 @@ public class DeleteCommentServlet extends HttpServlet {
     Key key = KeyFactory.createKey(ENTITY_COMMENT, Long.parseLong(commentId));
     try {
       Entity entity = datastore.get(key);
-      if (userService.getCurrentUser().getUserId().equals((String) entity.getProperty(PROPERTY_USER_ID))) {
+      if (userService.getCurrentUser().getUserId().equals((String) entity.getProperty(PROPERTY_USER_ID))
+          || userService.isUserAdmin()) {
         datastore.delete(entity.getKey());
         System.out.println("here");
         response.getWriter().println(gson.toJson(true));

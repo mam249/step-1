@@ -68,8 +68,7 @@ function createComment(comment) {
   paragraph.innerText = comment.name + ": " + comment.comment;
 
   div.appendChild(paragraph);
-
-  if (comment.userId === localStorage.getItem("userId")) {
+  if (comment.userId === localStorage.getItem("userId") || localStorage.getItem("isAdmin")) {
     const deleteButton = document.createElement('button');
     setAttributes(deleteButton, {'type': 'submit', 'class': 'btn btn-dark delete-comment btn-sm'})
     deleteButton.innerText = "X";
@@ -124,6 +123,8 @@ async function displayCommentsForm() {
 
   if (loginInfo.userId) {
     localStorage.setItem("userId", loginInfo.userId);
+  } else {
+    localStorage.removeItem("userId");
   }
 
   document.getElementById('comments-form-spinner').style.display = "none";
@@ -132,8 +133,10 @@ async function displayCommentsForm() {
   const deleteCommentsButton = document.getElementById('delete-comments-btn');
   if (loginInfo.isAdmin) {
       deleteCommentsButton.style.display = "block";
+      localStorage.setItem("isAdmin", true);
   } else {
       deleteCommentsButton.style.display = "none";
+      localStorage.removeItem("isAdmin");
   }
   document.getElementById('comments-spinner').style.display = "none";
 }
