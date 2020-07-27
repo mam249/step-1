@@ -45,3 +45,11 @@ limitations under the License. */
     background-color: rgb(56, 56, 56);
     color: rgba(238, 238, 238, 0.8);
 }
+
+[data-theme="dark"] .modal-header {
+    border-bottom: none;
+}
+
+[data-theme="dark"] .close {
+    color: white;
+}

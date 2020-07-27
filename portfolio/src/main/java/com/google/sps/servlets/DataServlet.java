@@ -21,6 +21,8 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
@@ -42,6 +44,7 @@ public class DataServlet extends HttpServlet {
   private static final String PROPERTY_TIMESTAMP = "timestamp";
   private static final String ENTITY_COMMENT = "Comment";
   private static final String PARAMETER_LIMIT = "limit";
+  private static final String PROPERTY_EMAIL = "email";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -56,9 +59,10 @@ public class DataServlet extends HttpServlet {
       long id = entity.getKey().getId();
       String name = (String) entity.getProperty(PROPERTY_NAME);
       String cmt = (String) entity.getProperty(PROPERTY_COMMENT);
+      String email = (String) entity.getProperty(PROPERTY_EMAIL);
       long timestamp = (long) entity.getProperty(PROPERTY_TIMESTAMP);
 
-      Comment comment = new Comment(id, name, cmt, timestamp);
+      Comment comment = new Comment(id, name, cmt, email, timestamp);
       comments.add(comment);
     }
 
@@ -70,10 +74,19 @@ public class DataServlet extends HttpServlet {
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    if (!userService.isUserLoggedIn()) {
+      String urlToRedirectToAfterUserLogsIn = "/index.html#comments";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      response.sendRedirect(loginUrl);
+      return;
+    }
+
     Entity commentEntity = new Entity(ENTITY_COMMENT);
     long timestamp = System.currentTimeMillis();
 
     commentEntity.setProperty(PROPERTY_NAME, request.getParameter(PROPERTY_NAME));
+    commentEntity.setProperty(PROPERTY_EMAIL, userService.getCurrentUser().getEmail());
     commentEntity.setProperty(PROPERTY_COMMENT, request.getParameter(PROPERTY_COMMENT));
     commentEntity.setProperty(PROPERTY_TIMESTAMP, timestamp);
     

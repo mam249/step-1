@@ -64,6 +64,46 @@ function createParagraph(text) {
 /* Deletes all comments by calling /delete-data and refreshes comments-text element */
 async function deleteComments() {
   const request = new Request('/delete-data', {method: 'POST'});
-  await fetch(request);
+  const response = await fetch(request);
+  const isDeleted = await response.json();
+
+  if (isDeleted) {
+    getComments();
+  } else {
+    $('#adminModal').modal('toggle');
+  }
+}
+
+/* If user is logged in: display comment submission form,
+ * If user is logged in and admin: display comment submission form 
+ *                                   and delete all comments button,
+ * else: display login link
+ */
+async function displayCommentsForm() {
+  const response = await fetch("/login-status");
+  const loginInfo = await response.json();
+  const loginForm = document.getElementById('login-form');
+  const commentForm = document.getElementById('comment-form');
+
+  if (loginInfo.isLoggedIn) {
+      loginForm.style.display = "none";
+      commentForm.style.display = "block";
+      document.getElementById('logout-url').href = loginInfo.url;
+  } else {
+      loginForm.style.display = "block";
+      commentForm.style.display = "none";
+      document.getElementById('login-url').href = loginInfo.url; 
+  }
+
+  const deleteCommentsButton = document.getElementById('delete-comments-btn');
+  if (loginInfo.isAdmin) {
+      deleteCommentsButton.style.display = "block";
+  } else {
+      deleteCommentsButton.style.display = "none";
+  }
+}
+
+function bodyOnLoad() {
   getComments();
+  displayCommentsForm();
 }

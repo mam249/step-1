@@ -50,7 +50,7 @@ THE SOFTWARE. -->
   <link rel="stylesheet" href="dark-mode.css">
 </head>
 
-<body id="bootstrap-overrides" onload="getComments()">
+<body id="bootstrap-overrides" onload="bodyOnLoad()">
   <nav id="navbar-sections" class="navbar fixed-top navbar-expand-sm navbar-light">
     <div class="custom-control custom-switch">
       <input type="checkbox" class="custom-control-input" id="darkSwitch" />
@@ -349,7 +349,8 @@ THE SOFTWARE. -->
             <div class="card" id="comments-card">
               <div class="card-body">
                 <h3>Previous comments</h3>
-                <div class="row">
+                <div id="previous-comments">
+                  <div class="row">
                     <p class="card-text">Display</p>
                     <select class="custom-select" id="commentLimit" onchange="getCommentsWithLimit()">
                         <option selected value="1">1</option>
@@ -358,10 +359,24 @@ THE SOFTWARE. -->
                         <option value="10">10</option>
                     </select>
                     <p class="card-text">comments</p>
+                  </div>
+                  <div id="comments-text"></div>
+                  <button id="delete-comments-btn" class="btn btn-dark" onclick="deleteComments()">Delete all comments</button>
                 </div>
-                <div id="comments-text"></div>
-                <button class="btn btn-dark" onclick="deleteComments()">Delete all comments</button>
+                <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="adminModalLabel">Restricted action: admin only</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                </div>
                 <h3>Submit a comment</h3>
+                <div id="comment-form">
                 <form action="/data" method="POST">
                   <div class="form-group">
                     <label for="inputName">Name</label>
@@ -375,6 +390,11 @@ THE SOFTWARE. -->
                   </div>
                   <button type="submit" class="btn btn-dark">Submit</button>
                 </form>
+                <a id="logout-url">Log out</a>
+                </div>
+                <div id="login-form">
+                    <a id="login-url">Login</a>
+                </div>
               </div>
             </div>
           </div>

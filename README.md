@@ -14,4 +14,4 @@ Then follow the on-screen instructions to set up your repo.
 
 # Acknowledgements
 - [Bootstrap](https://github.com/twbs/bootstrap/blob/main/LICENSE)
-- [Dark Mode] (https://github.com/coliff/dark-mode-switch/blob/master/LICENSE) 
+- [Dark Mode](https://github.com/coliff/dark-mode-switch/blob/master/LICENSE) 
