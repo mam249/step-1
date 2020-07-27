@@ -19,10 +19,12 @@ public final class LoginInfo {
   private final boolean isLoggedIn;
   private final boolean isAdmin;
   private final String url;
+  private final String nickname;
 
-  public LoginInfo(boolean isLoggedIn, boolean isAdmin, String url) {
+  public LoginInfo(boolean isLoggedIn, boolean isAdmin, String url, String nickname) {
     this.isLoggedIn = isLoggedIn;
     this.isAdmin = isAdmin;
     this.url = url;
+    this.nickname = nickname;
   }
 }

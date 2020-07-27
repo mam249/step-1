@@ -97,6 +97,10 @@ async function displayCommentsForm() {
       commentForm.style.display = "none";
       document.getElementById('login-url').href = loginInfo.url; 
   }
+
+  document.getElementById("inputNickname").value = loginInfo.nickname;
+  document.getElementById("inputName").value = loginInfo.nickname;
+
   document.getElementById('comments-form-spinner').style.display = "none";
 
   document.getElementById('comments-spinner').style.display = "block";

@@ -40,11 +40,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final String PROPERTY_NAME = "name";
+  private static final String PROPERTY_NICKNAME = "nickname";
   private static final String PROPERTY_COMMENT = "comment";
   private static final String PROPERTY_TIMESTAMP = "timestamp";
   private static final String ENTITY_COMMENT = "Comment";
+  private static final String ENTITY_USER_INFO = "UserInfo";
   private static final String PARAMETER_LIMIT = "limit";
-  private static final String PROPERTY_EMAIL = "email";
+  private static final String PROPERTY_USER_ID = "userId";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -57,11 +59,12 @@ public class DataServlet extends HttpServlet {
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results) {
       long id = entity.getKey().getId();
+      String userId = (String) entity.getProperty(PROPERTY_USER_ID);
       String name = (String) entity.getProperty(PROPERTY_NAME);
       String cmt = (String) entity.getProperty(PROPERTY_COMMENT);
       long timestamp = (long) entity.getProperty(PROPERTY_TIMESTAMP);
 
-      Comment comment = new Comment(id, name, cmt, timestamp);
+      Comment comment = new Comment(id, userId, name, cmt, timestamp);
       comments.add(comment);
     }
 
@@ -83,14 +86,25 @@ public class DataServlet extends HttpServlet {
 
     Entity commentEntity = new Entity(ENTITY_COMMENT);
     long timestamp = System.currentTimeMillis();
+    String userId = userService.getCurrentUser().getUserId();
+    String nickname = request.getParameter(PROPERTY_NICKNAME);
+    String name = request.getParameter(PROPERTY_NAME);
 
-    commentEntity.setProperty(PROPERTY_NAME, request.getParameter(PROPERTY_NAME));
-    commentEntity.setProperty(PROPERTY_EMAIL, userService.getCurrentUser().getEmail());
+    commentEntity.setProperty(PROPERTY_NAME, name);
+    commentEntity.setProperty(PROPERTY_USER_ID, userId);
     commentEntity.setProperty(PROPERTY_COMMENT, request.getParameter(PROPERTY_COMMENT));
     commentEntity.setProperty(PROPERTY_TIMESTAMP, timestamp);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
+
+     if (!name.equals(nickname)) {
+        Entity userInfoEntity = new Entity(ENTITY_USER_INFO, userId);
+        userInfoEntity.setProperty(PROPERTY_USER_ID, userId);
+        userInfoEntity.setProperty(PROPERTY_NICKNAME, name);
+        datastore.put(userInfoEntity);
+    }
+
     response.sendRedirect("/index.html#comments");
   }
 }
