@@ -50,18 +50,39 @@ async function fetchComments(limit) {
   const comments = await response.json();
   commentsElement.innerHTML = '';
   for (let i = 0; i < comments.length; i++) {
-    commentsElement.appendChild(createParagraph(comments[i]));
+    commentsElement.appendChild(createComment(comments[i]));
   }
   document.getElementById('comments-spinner').style.display = "none";
 }
 
-/* Creates <p> element in format: "name: comment" */
-function createParagraph(text) {
+/* Creates <div> element for a comment in format: "name: comment (delete button if the comment owner)" */
+function createComment(comment) {
+  const form = document.createElement('form');
+  setAttributes(form,{'action': '/delete-mine','method': 'POST'});
+
+  const div = document.createElement('div');
+  div.setAttribute('class', 'row justify-content-between');
+
   const paragraph = document.createElement('p');
   paragraph.setAttribute('class', 'card-text');
-  paragraph.innerText = text.name + ": " + text.comment;
-  return paragraph;
-}
+  paragraph.innerText = comment.name + ": " + comment.comment;
+
+  div.appendChild(paragraph);
+
+  if (comment.userId === localStorage.getItem("userId")) {
+    const deleteButton = document.createElement('button');
+    setAttributes(deleteButton, {'type': 'submit', 'class': 'btn btn-dark delete-comment btn-sm'})
+    deleteButton.innerText = "X";
+    div.appendChild(deleteButton);
+
+    const commentId = document.createElement('input');
+    setAttributes(commentId, {'type': 'hidden', 'name': 'commentId', 'value': comment.id});
+    div.appendChild(commentId);
+  }
+
+  form.appendChild(div);
+  return form;
+}git
 
 /* Deletes all comments by calling /delete-data and refreshes comments-text element */
 async function deleteComments() {
@@ -101,6 +122,10 @@ async function displayCommentsForm() {
   document.getElementById("inputNickname").value = loginInfo.nickname;
   document.getElementById("inputName").value = loginInfo.nickname;
 
+  if (loginInfo.userId) {
+    localStorage.setItem("userId", loginInfo.userId);
+  }
+
   document.getElementById('comments-form-spinner').style.display = "none";
 
   document.getElementById('comments-spinner').style.display = "block";
@@ -114,6 +139,12 @@ async function displayCommentsForm() {
 }
 
 function bodyOnLoad() {
-  getComments();
   displayCommentsForm();
+  getComments();
+}
+
+function setAttributes(element, attributes) {
+   Object.keys(attributes).forEach(function(key) {
+     element.setAttribute(key, attributes[key]);
+   })
 }

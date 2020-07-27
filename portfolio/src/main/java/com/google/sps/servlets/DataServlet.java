@@ -35,7 +35,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /* Servlet that: 
  * in Get request returns N comments from Datastore where N is a parameter called limit; 
- * in Post request adds a comment entity into the Datastore 
+ * in Post request adds a comment entity into the Datastore
+ *          and if the user's nickname and input name are different
+ *          updates the user info entity in the Datastore    
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
