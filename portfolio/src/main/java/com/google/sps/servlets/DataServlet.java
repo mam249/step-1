@@ -41,13 +41,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final String PROPERTY_NAME = "name";
-  private static final String PROPERTY_NICKNAME = "nickname";
-  private static final String PROPERTY_COMMENT = "comment";
-  private static final String PROPERTY_TIMESTAMP = "timestamp";
   private static final String ENTITY_COMMENT = "Comment";
   private static final String ENTITY_USER_INFO = "UserInfo";
   private static final String PARAMETER_LIMIT = "limit";
+  private static final String PROPERTY_COMMENT = "comment";
+  private static final String PROPERTY_NAME = "name";
+  private static final String PROPERTY_NICKNAME = "nickname";
+  private static final String PROPERTY_TIMESTAMP = "timestamp";
   private static final String PROPERTY_USER_ID = "userId";
 
   @Override

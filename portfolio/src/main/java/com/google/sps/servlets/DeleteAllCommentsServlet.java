@@ -31,8 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /* Servlet that in the Post request deletes all comments if the logged in user is admin */
-@WebServlet("/delete-data")
-public class DeleteDataServlet extends HttpServlet {
+@WebServlet("/delete-all")
+public class DeleteAllCommentsServlet extends HttpServlet {
   private static final String ENTITY_COMMENT = "Comment";
 
   @Override

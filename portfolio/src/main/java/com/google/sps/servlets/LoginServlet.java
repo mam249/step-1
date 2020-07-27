@@ -34,9 +34,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/login-status")
 public class LoginServlet extends HttpServlet {
+  private static final String ENTITY_USER_INFO = "UserInfo";
   private static final String PROPERTY_NICKNAME = "nickname";
   private static final String PROPERTY_USER_ID = "userId";
-  private static final String ENTITY_USER_INFO = "UserInfo";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

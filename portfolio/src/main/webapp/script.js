@@ -82,11 +82,11 @@ function createComment(comment) {
 
   form.appendChild(div);
   return form;
-}git
+}
 
 /* Deletes all comments by calling /delete-data and refreshes comments-text element */
 async function deleteComments() {
-  const request = new Request('/delete-data', {method: 'POST'});
+  const request = new Request('/delete-all', {method: 'POST'});
   const response = await fetch(request);
   const isDeleted = await response.json();
 
