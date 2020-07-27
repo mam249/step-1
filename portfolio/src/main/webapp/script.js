@@ -52,6 +52,9 @@ async function fetchComments(limit) {
   for (let i = 0; i < comments.length; i++) {
     commentsElement.appendChild(createComment(comments[i]));
   }
+  if (comments.length === 0) {
+      commentsElement.innerText = "No comments";
+  }
   document.getElementById('comments-spinner').style.display = "none";
 }
 

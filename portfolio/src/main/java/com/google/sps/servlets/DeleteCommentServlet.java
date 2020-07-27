@@ -63,11 +63,11 @@ public class DeleteCommentServlet extends HttpServlet {
         datastore.delete(entity.getKey());
         System.out.println("here");
         response.getWriter().println(gson.toJson(true));
-        response.sendRedirect("/");
+        response.sendRedirect("/index.html#comments");
       }
     } catch (Exception e) {
       response.getWriter().println(gson.toJson(false));
-      response.sendRedirect("/");
+      response.sendRedirect("/index.html#comments");
     }
   }
 }
