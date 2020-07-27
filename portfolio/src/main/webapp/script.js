@@ -43,14 +43,16 @@ function getCommentsWithLimit() {
 }
 
 /* Given a limit N, fetches N comments from /data and puts results into comments-text element */
-function fetchComments(limit) {
+async function fetchComments(limit) {
+  document.getElementById('comments-spinner').style.display = "block";
   const commentsElement = document.getElementById('comments-text');
-  fetch('/data?limit=' + limit).then(response => response.json()).then((comments) => {
-    commentsElement.innerHTML = '';
-    for (let i = 0; i < comments.length; i++) {
-      commentsElement.appendChild(createParagraph(comments[i]));
-    }
-  });
+  const response = await fetch('/data?limit=' + limit);
+  const comments = await response.json();
+  commentsElement.innerHTML = '';
+  for (let i = 0; i < comments.length; i++) {
+    commentsElement.appendChild(createParagraph(comments[i]));
+  }
+  document.getElementById('comments-spinner').style.display = "none";
 }
 
 /* Creates <p> element in format: "name: comment" */
@@ -80,6 +82,7 @@ async function deleteComments() {
  * else: display login link
  */
 async function displayCommentsForm() {
+  document.getElementById('comments-form-spinner').style.display = "block";
   const response = await fetch("/login-status");
   const loginInfo = await response.json();
   const loginForm = document.getElementById('login-form');
@@ -94,13 +97,16 @@ async function displayCommentsForm() {
       commentForm.style.display = "none";
       document.getElementById('login-url').href = loginInfo.url; 
   }
+  document.getElementById('comments-form-spinner').style.display = "none";
 
+  document.getElementById('comments-spinner').style.display = "block";
   const deleteCommentsButton = document.getElementById('delete-comments-btn');
   if (loginInfo.isAdmin) {
       deleteCommentsButton.style.display = "block";
   } else {
       deleteCommentsButton.style.display = "none";
   }
+  document.getElementById('comments-spinner').style.display = "none";
 }
 
 function bodyOnLoad() {

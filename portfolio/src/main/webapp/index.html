@@ -361,6 +361,11 @@ THE SOFTWARE. -->
                     <p class="card-text">comments</p>
                   </div>
                   <div id="comments-text"></div>
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status" id="comments-spinner">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
                   <button id="delete-comments-btn" class="btn btn-dark" onclick="deleteComments()">Delete all comments</button>
                 </div>
                 <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
@@ -376,6 +381,11 @@ THE SOFTWARE. -->
                 </div>
                 </div>
                 <h3>Submit a comment</h3>
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status" id="comments-form-spinner">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
                 <div id="comment-form">
                 <form action="/data" method="POST">
                   <div class="form-group">

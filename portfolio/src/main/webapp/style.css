@@ -160,3 +160,7 @@ h3 {
 .custom-select {
   width: 60px;
 }
+
+#delete-comments-btn, #comment-form, #login-form {
+  display: none;
+}
