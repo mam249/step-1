@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteCommentServlet extends HttpServlet {
   private static final String ENTITY_COMMENT = "Comment";
   private static final String PARAMETER_COMMENT_ID = "commentId";
-  private static final String PROPERTY_COMMENT_ID = "ID/Name";
   private static final String PROPERTY_USER_ID = "userId";
 
   @Override
