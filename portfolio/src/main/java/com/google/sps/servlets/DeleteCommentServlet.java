@@ -44,8 +44,8 @@ public class DeleteCommentServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
-      String urlToRedirectToAfterUserLogsIn = "/index.html#comments";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String redirectUrl = "/index.html#comments";
+      String loginUrl = userService.createLoginURL(redirectUrl);
       response.sendRedirect(loginUrl);
       return;
     }

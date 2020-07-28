@@ -74,7 +74,6 @@ public class LoginServlet extends HttpServlet {
     if (entity == null) {
       return "";
     }
-    String nickname = (String) entity.getProperty(PROPERTY_NICKNAME);
-    return nickname;
+    return (String) entity.getProperty(PROPERTY_NICKNAME);
   }
 }
