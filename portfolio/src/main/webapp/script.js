@@ -43,27 +43,52 @@ function getCommentsWithLimit() {
 }
 
 /* Given a limit N, fetches N comments from /data and puts results into comments-text element */
-function fetchComments(limit) {
+async function fetchComments(limit) {
+  document.getElementById('comments-spinner').style.display = "block";
   const commentsElement = document.getElementById('comments-text');
-  fetch('/data?limit=' + limit).then(response => response.json()).then((comments) => {
-    commentsElement.innerHTML = '';
-    for (let i = 0; i < comments.length; i++) {
-      commentsElement.appendChild(createParagraph(comments[i]));
-    }
-  });
+  const response = await fetch('/data?limit=' + limit);
+  const comments = await response.json();
+  commentsElement.innerHTML = '';
+  for (let i = 0; i < comments.length; i++) {
+    commentsElement.appendChild(createComment(comments[i]));
+  }
+  if (comments.length === 0) {
+    commentsElement.innerText = "No comments";
+  }
+  document.getElementById('comments-spinner').style.display = "none";
 }
 
-/* Creates <p> element in format: "name: comment" */
-function createParagraph(text) {
+/* Creates <div> element for a comment in format: "name: comment (delete button if the comment owner)" */
+function createComment(comment) {
+  const form = document.createElement('form');
+  setAttributes(form,{'action': '/delete-mine','method': 'POST'});
+
+  const div = document.createElement('div');
+  div.setAttribute('class', 'row justify-content-between');
+
   const paragraph = document.createElement('p');
   paragraph.setAttribute('class', 'card-text');
-  paragraph.innerText = text.name + ": " + text.comment;
-  return paragraph;
+  paragraph.innerText = comment.name + ": " + comment.comment;
+
+  div.appendChild(paragraph);
+  if (comment.userId === localStorage.getItem("userId") || localStorage.getItem("isAdmin")) {
+    const deleteButton = document.createElement('button');
+    setAttributes(deleteButton, {'type': 'submit', 'class': 'btn btn-dark delete-comment btn-sm'})
+    deleteButton.innerText = "X";
+    div.appendChild(deleteButton);
+
+    const commentId = document.createElement('input');
+    setAttributes(commentId, {'type': 'hidden', 'name': 'commentId', 'value': comment.id});
+    div.appendChild(commentId);
+  }
+
+  form.appendChild(div);
+  return form;
 }
 
 /* Deletes all comments by calling /delete-data and refreshes comments-text element */
 async function deleteComments() {
-  const request = new Request('/delete-data', {method: 'POST'});
+  const request = new Request('/delete-all', {method: 'POST'});
   const response = await fetch(request);
   const isDeleted = await response.json();
 
@@ -80,6 +105,7 @@ async function deleteComments() {
  * else: display login link
  */
 async function displayCommentsForm() {
+  document.getElementById('comments-form-spinner').style.display = "block";
   const response = await fetch("/login-status");
   const loginInfo = await response.json();
   const loginForm = document.getElementById('login-form');
@@ -95,15 +121,36 @@ async function displayCommentsForm() {
       document.getElementById('login-url').href = loginInfo.url; 
   }
 
+  document.getElementById("inputNickname").value = loginInfo.nickname;
+  document.getElementById("inputName").value = loginInfo.nickname;
+
+  if (loginInfo.userId) {
+    localStorage.setItem("userId", loginInfo.userId);
+  } else {
+    localStorage.removeItem("userId");
+  }
+
+  document.getElementById('comments-form-spinner').style.display = "none";
+
+  document.getElementById('comments-spinner').style.display = "block";
   const deleteCommentsButton = document.getElementById('delete-comments-btn');
   if (loginInfo.isAdmin) {
       deleteCommentsButton.style.display = "block";
+      localStorage.setItem("isAdmin", true);
   } else {
       deleteCommentsButton.style.display = "none";
+      localStorage.removeItem("isAdmin");
   }
+  document.getElementById('comments-spinner').style.display = "none";
 }
 
 function bodyOnLoad() {
-  getComments();
   displayCommentsForm();
+  getComments();
+}
+
+function setAttributes(element, attributes) {
+   Object.keys(attributes).forEach(function(key) {
+     element.setAttribute(key, attributes[key]);
+   })
 }

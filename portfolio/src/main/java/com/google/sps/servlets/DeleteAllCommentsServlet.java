@@ -22,7 +22,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
-import com.google.sps.data.Comment;
+import com.google.sps.utils.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +32,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /* Servlet that in the Post request deletes all comments if the logged in user is admin */
-@WebServlet("/delete-data")
-public class DeleteDataServlet extends HttpServlet {
-  private static final String ENTITY_COMMENT = "Comment";
+@WebServlet("/delete-all")
+public class DeleteAllCommentsServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
-      String urlToRedirectToAfterUserLogsIn = "/index.html#comments";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String redirectUrl = "/index.html#comments";
+      String loginUrl = userService.createLoginURL(redirectUrl);
       response.sendRedirect(loginUrl);
       return;
     }
@@ -53,7 +52,7 @@ public class DeleteDataServlet extends HttpServlet {
       return;
     }
     
-    Query query = new Query(ENTITY_COMMENT);
+    Query query = new Query(Constants.ENTITY_COMMENT);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
