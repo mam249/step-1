@@ -24,7 +24,7 @@ $('.navbar-nav>li>a').on('click', function () {
  * then fetches N comments 
  * else fetches the default number set by the page
  */
-function getComments() {
+async function getComments() {
   const isLimitSet = null !== localStorage.getItem("limit");
   const limit = isLimitSet ? localStorage.getItem("limit") :
             document.getElementById('commentLimit').value;
@@ -36,7 +36,7 @@ function getComments() {
 /* On change of selected limit of displayed comments, 
  * sets the new limit in localStorage and fetches the selected number of comments
  */
-function getCommentsWithLimit() {
+async function getCommentsWithLimit() {
     const limit = document.getElementById('commentLimit').value;
     localStorage.setItem("limit", limit);
     fetchComments(limit);
@@ -144,13 +144,36 @@ async function displayCommentsForm() {
   document.getElementById('comments-spinner').style.display = "none";
 }
 
-function bodyOnLoad() {
-  displayCommentsForm();
-  getComments();
+async function bodyOnLoad() {
+  await displayCommentsForm();
+  await getComments();
+  if (localStorage.getItem("languageCode")) {
+    document.getElementById('language').value = localStorage.getItem("languageCode");
+    translateText();
+  } else {
+    getComments();
+  }
 }
 
 function setAttributes(element, attributes) {
    Object.keys(attributes).forEach(function(key) {
      element.setAttribute(key, attributes[key]);
    })
+}
+
+async function translateText() {
+  await getComments();
+  const languageCode = document.getElementById('language').value;
+  if (languageCode === "en") {
+    localStorage.removeItem("languageCode");
+    return;
+  }
+  localStorage.setItem("languageCode", languageCode);    
+  const languageCode = localStorage.getItem("languageCode");
+  document.getElementById('comments-spinner').style.display = "block";
+  const textElement =  document.getElementById("comments-text");
+  const response = await fetch('/translate?languageCode=' + languageCode + '&text=' + textElement.innerHTML);
+  const translatedHTML = await response.text();
+  textElement.innerHTML = translatedHTML;
+  document.getElementById('comments-spinner').style.display = "none";
 }
