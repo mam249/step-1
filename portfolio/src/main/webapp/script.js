@@ -169,7 +169,6 @@ async function translateText() {
     return;
   }
   localStorage.setItem("languageCode", languageCode);    
-  const languageCode = localStorage.getItem("languageCode");
   document.getElementById('comments-spinner').style.display = "block";
   const textElement =  document.getElementById("comments-text");
   const response = await fetch('/translate?languageCode=' + languageCode + '&text=' + textElement.innerHTML);
