@@ -22,6 +22,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.utils.Constants;
 import com.google.sps.data.LoginInfo;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
@@ -34,9 +35,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/login-status")
 public class LoginServlet extends HttpServlet {
-  private static final String ENTITY_USER_INFO = "UserInfo";
-  private static final String PROPERTY_NICKNAME = "nickname";
-  private static final String PROPERTY_USER_ID = "userId";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -45,13 +43,13 @@ public class LoginServlet extends HttpServlet {
     String nickname = "";
     String userId = "";
     if (userService.isUserLoggedIn()) {
-      String urlToRedirectToAfterUserLogsOut = "/";
-      url = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      String redirectUrl = "/";
+      url = userService.createLogoutURL(redirectUrl);
       userId = userService.getCurrentUser().getUserId();
       nickname = getUserNickname(userId);
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/index.html#comments";
-      url = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String redirectUrl = "/index.html#comments";
+      url = userService.createLoginURL(redirectUrl);
     }
 
     boolean isAdmin = userService.isUserLoggedIn() && userService.isUserAdmin();
@@ -67,13 +65,13 @@ public class LoginServlet extends HttpServlet {
   private String getUserNickname(String userId) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
-        new Query(ENTITY_USER_INFO)
-            .setFilter(new Query.FilterPredicate(PROPERTY_USER_ID, Query.FilterOperator.EQUAL, userId));
+        new Query(Constants.ENTITY_USER_INFO)
+            .setFilter(new Query.FilterPredicate(Constants.PROPERTY_USER_ID, Query.FilterOperator.EQUAL, userId));
     PreparedQuery results = datastore.prepare(query);
     Entity entity = results.asSingleEntity();
     if (entity == null) {
       return "";
     }
-    return (String) entity.getProperty(PROPERTY_NICKNAME);
+    return (String) entity.getProperty(Constants.PROPERTY_NICKNAME);
   }
 }

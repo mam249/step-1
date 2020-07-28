@@ -25,6 +25,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
+import com.google.sps.utils.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,32 +42,24 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private static final String ENTITY_COMMENT = "Comment";
-  private static final String ENTITY_USER_INFO = "UserInfo";
-  private static final String PARAMETER_LIMIT = "limit";
-  private static final String PROPERTY_COMMENT = "comment";
-  private static final String PROPERTY_NAME = "name";
-  private static final String PROPERTY_NICKNAME = "nickname";
-  private static final String PROPERTY_TIMESTAMP = "timestamp";
-  private static final String PROPERTY_USER_ID = "userId";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(ENTITY_COMMENT).addSort(PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
+    Query query = new Query(Constants.ENTITY_COMMENT).addSort(Constants.PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    int limit = Integer.parseInt(request.getParameter(PARAMETER_LIMIT));
+    int limit = Integer.parseInt(request.getParameter(Constants.PARAMETER_LIMIT));
     List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(limit));
 
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results) {
       long id = entity.getKey().getId();
-      String userId = (String) entity.getProperty(PROPERTY_USER_ID);
-      String name = (String) entity.getProperty(PROPERTY_NAME);
-      String cmt = (String) entity.getProperty(PROPERTY_COMMENT);
-      long timestamp = (long) entity.getProperty(PROPERTY_TIMESTAMP);
+      String userId = (String) entity.getProperty(Constants.PROPERTY_USER_ID);
+      String name = (String) entity.getProperty(Constants.PROPERTY_NAME);
+      String commentText = (String) entity.getProperty(Constants.PROPERTY_COMMENT);
+      long timestamp = (long) entity.getProperty(Constants.PROPERTY_TIMESTAMP);
 
-      Comment comment = new Comment(id, userId, name, cmt, timestamp);
+      Comment comment = new Comment(id, userId, name, commentText, timestamp);
       comments.add(comment);
     }
 
@@ -80,30 +73,30 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
     if (!userService.isUserLoggedIn()) {
-      String urlToRedirectToAfterUserLogsIn = "/index.html#comments";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String redirectUrl = "/index.html#comments";
+      String loginUrl = userService.createLoginURL(redirectUrl);
       response.sendRedirect(loginUrl);
       return;
     }
 
-    Entity commentEntity = new Entity(ENTITY_COMMENT);
+    Entity commentEntity = new Entity(Constants.ENTITY_COMMENT);
     long timestamp = System.currentTimeMillis();
     String userId = userService.getCurrentUser().getUserId();
-    String nickname = request.getParameter(PROPERTY_NICKNAME);
-    String name = request.getParameter(PROPERTY_NAME);
+    String nickname = request.getParameter(Constants.PROPERTY_NICKNAME);
+    String name = request.getParameter(Constants.PROPERTY_NAME);
 
-    commentEntity.setProperty(PROPERTY_NAME, name);
-    commentEntity.setProperty(PROPERTY_USER_ID, userId);
-    commentEntity.setProperty(PROPERTY_COMMENT, request.getParameter(PROPERTY_COMMENT));
-    commentEntity.setProperty(PROPERTY_TIMESTAMP, timestamp);
+    commentEntity.setProperty(Constants.PROPERTY_NAME, name);
+    commentEntity.setProperty(Constants.PROPERTY_USER_ID, userId);
+    commentEntity.setProperty(Constants.PROPERTY_COMMENT, request.getParameter(Constants.PROPERTY_COMMENT));
+    commentEntity.setProperty(Constants.PROPERTY_TIMESTAMP, timestamp);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
      if (!name.equals(nickname)) {
-        Entity userInfoEntity = new Entity(ENTITY_USER_INFO, userId);
-        userInfoEntity.setProperty(PROPERTY_USER_ID, userId);
-        userInfoEntity.setProperty(PROPERTY_NICKNAME, name);
+        Entity userInfoEntity = new Entity(Constants.ENTITY_USER_INFO, userId);
+        userInfoEntity.setProperty(Constants.PROPERTY_USER_ID, userId);
+        userInfoEntity.setProperty(Constants.PROPERTY_NICKNAME, name);
         datastore.put(userInfoEntity);
     }
 

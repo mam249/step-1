@@ -24,6 +24,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.utils.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +37,6 @@ import javax.servlet.http.HttpServletResponse;
  * The comment will be deleted only if the current user is the comment owner or admin */
 @WebServlet("/delete-mine")
 public class DeleteCommentServlet extends HttpServlet {
-  private static final String ENTITY_COMMENT = "Comment";
-  private static final String PARAMETER_COMMENT_ID = "commentId";
-  private static final String PROPERTY_USER_ID = "userId";
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -52,16 +50,15 @@ public class DeleteCommentServlet extends HttpServlet {
 
     response.setContentType("application/json;");
     Gson gson = new Gson();
-    String commentId = request.getParameter(PARAMETER_COMMENT_ID);
+    String commentId = request.getParameter(Constants.PARAMETER_COMMENT_ID);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Key key = KeyFactory.createKey(ENTITY_COMMENT, Long.parseLong(commentId));
+    Key key = KeyFactory.createKey(Constants.ENTITY_COMMENT, Long.parseLong(commentId));
     try {
       Entity entity = datastore.get(key);
-      if (userService.getCurrentUser().getUserId().equals((String) entity.getProperty(PROPERTY_USER_ID))
+      if (userService.getCurrentUser().getUserId().equals((String) entity.getProperty(Constants.PROPERTY_USER_ID))
           || userService.isUserAdmin()) {
         datastore.delete(entity.getKey());
-        System.out.println("here");
         response.getWriter().println(gson.toJson(true));
         response.sendRedirect("/index.html#comments");
       }
