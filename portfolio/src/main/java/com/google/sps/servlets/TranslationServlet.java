@@ -23,12 +23,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/* Servlet that in Get request returns a translation of the text in languageCode
- * the request should have 2 parameters: text and languageCode
- */
+/* Servlet that translates comments from English to other languages */
 @WebServlet("/translate")
 public class TranslationServlet extends HttpServlet {
-
+  
+  /* Returns a translation of the text in languageCode
+   * the do Get request takes 2 parameters: text and languageCode */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the request parameters.
