@@ -37,9 +37,9 @@ async function getComments() {
  * sets the new limit in localStorage and fetches the selected number of comments
  */
 async function getCommentsWithLimit() {
-    const limit = document.getElementById('commentLimit').value;
-    localStorage.setItem("limit", limit);
-    fetchComments(limit);
+  const limit = document.getElementById('commentLimit').value;
+  localStorage.setItem("limit", limit);
+  fetchComments(limit);
 }
 
 /* Given a limit N, fetches N comments from /data and puts results into comments-text element */
@@ -112,13 +112,13 @@ async function displayCommentsForm() {
   const commentForm = document.getElementById('comment-form');
 
   if (loginInfo.isLoggedIn) {
-      loginForm.style.display = "none";
-      commentForm.style.display = "block";
-      document.getElementById('logout-url').href = loginInfo.url;
+    loginForm.style.display = "none";
+    commentForm.style.display = "block";
+    document.getElementById('logout-url').href = loginInfo.url;
   } else {
-      loginForm.style.display = "block";
-      commentForm.style.display = "none";
-      document.getElementById('login-url').href = loginInfo.url; 
+    loginForm.style.display = "block";
+    commentForm.style.display = "none";
+    document.getElementById('login-url').href = loginInfo.url; 
   }
 
   document.getElementById("inputNickname").value = loginInfo.nickname;
@@ -135,43 +135,35 @@ async function displayCommentsForm() {
   document.getElementById('comments-spinner').style.display = "block";
   const deleteCommentsButton = document.getElementById('delete-comments-btn');
   if (loginInfo.isAdmin) {
-      deleteCommentsButton.style.display = "block";
-      localStorage.setItem("isAdmin", true);
+    deleteCommentsButton.style.display = "block";
+    localStorage.setItem("isAdmin", true);
   } else {
-      deleteCommentsButton.style.display = "none";
-      localStorage.removeItem("isAdmin");
+    deleteCommentsButton.style.display = "none";
+    localStorage.removeItem("isAdmin");
   }
   document.getElementById('comments-spinner').style.display = "none";
 }
 
 async function bodyOnLoad() {
-  await displayCommentsForm();
-  await getComments();
-  if (localStorage.getItem("languageCode")) {
-    document.getElementById('language').value = localStorage.getItem("languageCode");
-    translateText();
-  } else {
-    getComments();
-  }
+  displayCommentsForm();
+  getComments();
 }
 
 function setAttributes(element, attributes) {
-   Object.keys(attributes).forEach(function(key) {
-     element.setAttribute(key, attributes[key]);
-   })
+  Object.keys(attributes).forEach(function(key) {
+    element.setAttribute(key, attributes[key]);
+  })
 }
 
 async function translateText() {
   await getComments();
   const languageCode = document.getElementById('language').value;
   if (languageCode === "en") {
-    localStorage.removeItem("languageCode");
     return;
   }
-  localStorage.setItem("languageCode", languageCode);    
   document.getElementById('comments-spinner').style.display = "block";
   const textElement =  document.getElementById("comments-text");
-  const response = await fetch('/translate?languageCode=' + languageCode + '&text=' + textElement.innerHTML);
+  const response = await fetch('/translate?languageCode=' + languageCode + '&text=' + encodeURIComponent(textElement.innerHTML));
   const translatedHTML = await response.text();
   textElement.innerHTML = translatedHTML;
   document.getElementById('comments-spinner').style.display = "none";
