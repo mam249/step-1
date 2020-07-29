@@ -72,7 +72,7 @@ function createComment(comment) {
 
   const sentiment = document.createElement('p');
   sentiment.setAttribute('class', 'card-text');
-  sentiment.innerText = "[Sentiment: " + comment.sentiment + "]";
+  sentiment.innerText = "[Sentiment: " + getSentiment(comment.sentiment) + "]";
 
   div.appendChild(paragraph);
   div.appendChild(sentiment);
@@ -172,4 +172,27 @@ async function translateText() {
   const translatedHTML = await response.text();
   textElement.innerHTML = translatedHTML;
   document.getElementById('comments-spinner').style.display = "none";
+}
+
+function getSentiment(score) {
+  const value = parseFloat(score);
+
+  const clearly_positive = 0.8;
+  const positive = 0.4;
+  const neutral = 0;
+  const negative = -0.4;
+
+  if (isNaN(value)) {
+    return "❔";  
+  } else if (value >= clearly_positive) {
+    return "😍";
+  } else if (value >= positive) {
+    return "😃";
+  } else if (value >= neutral) {
+    return "😐";
+  } else if (value >= negative) {
+    return "😒";
+  } else {
+    return "😤";
+  }
 }
