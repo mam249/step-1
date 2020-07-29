@@ -30,7 +30,6 @@ import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import com.google.sps.utils.Constants;
 import java.io.IOException;
-import java.lang.Math;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
