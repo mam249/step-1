@@ -70,7 +70,12 @@ function createComment(comment) {
   paragraph.setAttribute('class', 'card-text');
   paragraph.innerText = comment.name + ": " + comment.comment;
 
+  const sentiment = document.createElement('p');
+  sentiment.setAttribute('class', 'card-text');
+  sentiment.innerText = "[Sentiment: " + comment.sentiment + "]";
+
   div.appendChild(paragraph);
+  div.appendChild(sentiment);
   if (comment.userId === localStorage.getItem("userId") || localStorage.getItem("isAdmin")) {
     const deleteButton = document.createElement('button');
     setAttributes(deleteButton, {'type': 'submit', 'class': 'btn btn-dark delete-comment btn-sm'})
