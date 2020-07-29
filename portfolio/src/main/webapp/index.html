@@ -148,7 +148,7 @@ THE SOFTWARE. -->
         <div class="card-group">
           <div class="card align-items-center" id="au-card">
             <div class="card-body">
-              <div class="my-auto   ">
+              <div class="my-auto">
 
                 <h5 class="card-title text-center">au.pair - Incident Reporting Service</h3>
                   <p class="card-text">🏆 Best Community Hack at IC Hack 20</p>
@@ -358,7 +358,12 @@ THE SOFTWARE. -->
                         <option value="5">5</option>
                         <option value="10">10</option>
                     </select>
-                    <p class="card-text">comments</p>
+                    <p class="card-text">comments in</p>
+                    <select class="custom-select" id="language" onchange="translateText()">
+                      <option selected value="en">English</option>
+                      <option value="es">Spanish</option>
+                      <option value="fr">French</option>
+                    </select>
                   </div>
                   <div id="comments-text"></div>
                   <div class="d-flex justify-content-center">
