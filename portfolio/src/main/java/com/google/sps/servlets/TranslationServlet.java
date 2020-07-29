@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /* Servlet that in Get request returns a translation of the text in languageCode
- * the request should have 2 parameters: tet and languageCode
+ * the request should have 2 parameters: text and languageCode
  */
 @WebServlet("/translate")
 public class TranslationServlet extends HttpServlet {
