@@ -173,3 +173,7 @@ h3 {
   font-size: 13px; 
   text-align: center; 
 }
+
+#language {
+  width: auto;
+}

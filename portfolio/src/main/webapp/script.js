@@ -24,7 +24,7 @@ $('.navbar-nav>li>a').on('click', function () {
  * then fetches N comments 
  * else fetches the default number set by the page
  */
-function getComments() {
+async function getComments() {
   const isLimitSet = null !== localStorage.getItem("limit");
   const limit = isLimitSet ? localStorage.getItem("limit") :
             document.getElementById('commentLimit').value;
@@ -36,10 +36,10 @@ function getComments() {
 /* On change of selected limit of displayed comments, 
  * sets the new limit in localStorage and fetches the selected number of comments
  */
-function getCommentsWithLimit() {
-    const limit = document.getElementById('commentLimit').value;
-    localStorage.setItem("limit", limit);
-    fetchComments(limit);
+async function getCommentsWithLimit() {
+  const limit = document.getElementById('commentLimit').value;
+  localStorage.setItem("limit", limit);
+  fetchComments(limit);
 }
 
 /* Given a limit N, fetches N comments from /data and puts results into comments-text element */
@@ -117,13 +117,13 @@ async function displayCommentsForm() {
   const commentForm = document.getElementById('comment-form');
 
   if (loginInfo.isLoggedIn) {
-      loginForm.style.display = "none";
-      commentForm.style.display = "block";
-      document.getElementById('logout-url').href = loginInfo.url;
+    loginForm.style.display = "none";
+    commentForm.style.display = "block";
+    document.getElementById('logout-url').href = loginInfo.url;
   } else {
-      loginForm.style.display = "block";
-      commentForm.style.display = "none";
-      document.getElementById('login-url').href = loginInfo.url; 
+    loginForm.style.display = "block";
+    commentForm.style.display = "none";
+    document.getElementById('login-url').href = loginInfo.url; 
   }
 
   document.getElementById("inputNickname").value = loginInfo.nickname;
@@ -140,22 +140,36 @@ async function displayCommentsForm() {
   document.getElementById('comments-spinner').style.display = "block";
   const deleteCommentsButton = document.getElementById('delete-comments-btn');
   if (loginInfo.isAdmin) {
-      deleteCommentsButton.style.display = "block";
-      localStorage.setItem("isAdmin", true);
+    deleteCommentsButton.style.display = "block";
+    localStorage.setItem("isAdmin", true);
   } else {
-      deleteCommentsButton.style.display = "none";
-      localStorage.removeItem("isAdmin");
+    deleteCommentsButton.style.display = "none";
+    localStorage.removeItem("isAdmin");
   }
   document.getElementById('comments-spinner').style.display = "none";
 }
 
-function bodyOnLoad() {
+async function bodyOnLoad() {
   displayCommentsForm();
   getComments();
 }
 
 function setAttributes(element, attributes) {
-   Object.keys(attributes).forEach(function(key) {
-     element.setAttribute(key, attributes[key]);
-   })
+  Object.keys(attributes).forEach(function(key) {
+    element.setAttribute(key, attributes[key]);
+  })
+}
+
+async function translateText() {
+  await getComments();
+  const languageCode = document.getElementById('language').value;
+  if (languageCode === "en") {
+    return;
+  }
+  document.getElementById('comments-spinner').style.display = "block";
+  const textElement =  document.getElementById("comments-text");
+  const response = await fetch('/translate?languageCode=' + languageCode + '&text=' + encodeURIComponent(textElement.innerHTML));
+  const translatedHTML = await response.text();
+  textElement.innerHTML = translatedHTML;
+  document.getElementById('comments-spinner').style.display = "none";
 }
