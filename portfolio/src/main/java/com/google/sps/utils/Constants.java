@@ -24,4 +24,5 @@ public final class Constants {
   public static final String PROPERTY_NICKNAME = "nickname";
   public static final String PROPERTY_TIMESTAMP = "timestamp";
   public static final String PROPERTY_USER_ID = "userId";
+  public static final String PROPERTY_SENTIMENT = "sentiment";
 }
