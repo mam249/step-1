@@ -27,9 +27,9 @@ $('.navbar-nav>li>a').on('click', function () {
 async function getComments() {
   const isLimitSet = null !== localStorage.getItem("limit");
   const limit = isLimitSet ? localStorage.getItem("limit") :
-            document.getElementById('commentLimit').value;
+            document.getElementById('comment-limit').value;
   localStorage.setItem("limit", limit);
-  document.getElementById("commentLimit").value = limit;
+  document.getElementById("comment-limit").value = limit;
   fetchComments(limit);
 }
 
@@ -37,7 +37,7 @@ async function getComments() {
  * sets the new limit in localStorage and fetches the selected number of comments
  */
 async function getCommentsWithLimit() {
-  const limit = document.getElementById('commentLimit').value;
+  const limit = document.getElementById('comment-limit').value;
   localStorage.setItem("limit", limit);
   fetchComments(limit);
 }
@@ -115,8 +115,8 @@ async function displayCommentsForm() {
   const loginInfo = await response.json();
   const loginForm = document.getElementById('login-form');
   const commentForm = document.getElementById('comment-form');
-  const submitForm = document.getElementById('submitForm');
-  const nicknameForm = document.getElementById('nicknameForm');
+  const submitForm = document.getElementById('submit-form');
+  const nicknameForm = document.getElementById('nickname-form');
 
   if (loginInfo.isLoggedIn) {
     loginForm.style.display = "none";
