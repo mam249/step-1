@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/* Servlet that in the Post request deletes all comments if the logged in user is admin */
+/* Servlet that in the Post request updates user's nickname */
 @WebServlet("/update-nickname")
 public class UpdateNicknameServlet extends HttpServlet {
 

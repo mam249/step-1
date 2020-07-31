@@ -133,7 +133,6 @@ async function displayCommentsForm() {
     nicknameForm.style.display = "block";
     submitForm.style.display = "none";
   } else {
-    nicknameForm.style.display = "none";
     submitForm.style.display = "block";      
   }
 

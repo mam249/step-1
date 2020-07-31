@@ -34,6 +34,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +58,7 @@ public class DataServlet extends HttpServlet {
     List<Entity> commentResults = datastore.prepare(commentQuery).asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> comments = new ArrayList<>();
     if (!commentResults.isEmpty()) {
-      HashMap<String, String> userNicknames = getUserNicknames(datastore);
+      Map<String, String> userNicknames = getUserNicknames(datastore);
       for (Entity entity : commentResults) {
         comments.add(getCommentFromEntity(entity, userNicknames));
       }
@@ -96,11 +97,11 @@ public class DataServlet extends HttpServlet {
     return score;
   }
 
-  /* Returns a HashMap of <userId, nickname> */
-  private HashMap<String, String> getUserNicknames(DatastoreService datastore) {
+  /* Returns a Map of <userId, nickname> */
+  private Map<String, String> getUserNicknames(DatastoreService datastore) {
     Query userInfoQuery = new Query(Constants.ENTITY_USER_INFO);
     PreparedQuery userInfoResults = datastore.prepare(userInfoQuery);
-    HashMap<String, String> userNicknames = new HashMap<>();
+    Map<String, String> userNicknames = new HashMap<>();
     for (Entity entity : userInfoResults.asIterable()) {
       String userId = (String) entity.getProperty(Constants.PROPERTY_USER_ID);
       String nickname = (String) entity.getProperty(Constants.PROPERTY_NICKNAME);
@@ -109,7 +110,7 @@ public class DataServlet extends HttpServlet {
     return userNicknames;
   }
 
-  private Comment getCommentFromEntity(Entity entity, HashMap<String, String> userNicknames) {
+  private Comment getCommentFromEntity(Entity entity, Map<String, String> userNicknames) {
     long id = entity.getKey().getId();
     String userId = (String) entity.getProperty(Constants.PROPERTY_USER_ID);
     String name = userNicknames.get(userId);
@@ -123,13 +124,10 @@ public class DataServlet extends HttpServlet {
   private Entity createCommentEntity(UserService userService, HttpServletRequest request) throws IOException{
     long timestamp = System.currentTimeMillis();
     String userId = userService.getCurrentUser().getUserId();
-    String nickname = request.getParameter(Constants.PROPERTY_NICKNAME);
-    String name = request.getParameter(Constants.PROPERTY_NAME);
     String commentText = request.getParameter(Constants.PROPERTY_COMMENT);
     String sentimentScore = getSentimentAnalysis(commentText);
 
     Entity commentEntity = new Entity(Constants.ENTITY_COMMENT);
-    commentEntity.setProperty(Constants.PROPERTY_NAME, name);
     commentEntity.setProperty(Constants.PROPERTY_USER_ID, userId);
     commentEntity.setProperty(Constants.PROPERTY_COMMENT, commentText);
     commentEntity.setProperty(Constants.PROPERTY_TIMESTAMP, timestamp);
