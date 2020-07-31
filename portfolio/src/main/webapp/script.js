@@ -128,7 +128,7 @@ async function displayCommentsForm() {
     document.getElementById('login-url').href = loginInfo.url; 
   }
 
-  document.getElementById("inputNickname").value = loginInfo.nickname;
+  document.getElementById("input-nickname").value = loginInfo.nickname;
   if (loginInfo.nickname === "") {
     nicknameForm.style.display = "block";
     submitForm.style.display = "none";
