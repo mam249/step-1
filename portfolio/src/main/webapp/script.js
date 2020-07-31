@@ -115,6 +115,8 @@ async function displayCommentsForm() {
   const loginInfo = await response.json();
   const loginForm = document.getElementById('login-form');
   const commentForm = document.getElementById('comment-form');
+  const submitForm = document.getElementById('submitForm');
+  const nicknameForm = document.getElementById('nicknameForm');
 
   if (loginInfo.isLoggedIn) {
     loginForm.style.display = "none";
@@ -127,7 +129,13 @@ async function displayCommentsForm() {
   }
 
   document.getElementById("inputNickname").value = loginInfo.nickname;
-  document.getElementById("inputName").value = loginInfo.nickname;
+  if (loginInfo.nickname === "") {
+    nicknameForm.style.display = "block";
+    submitForm.style.display = "none";
+  } else {
+    nicknameForm.style.display = "none";
+    submitForm.style.display = "block";      
+  }
 
   if (loginInfo.userId) {
     localStorage.setItem("userId", loginInfo.userId);

@@ -79,7 +79,6 @@ public class DataServlet extends HttpServlet {
     Entity commentEntity = createCommentEntity(userService, request);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
-    maybeUpdateUserNickname(userService, request, datastore);
     response.sendRedirect("/index.html#comments");
   }
 
@@ -137,22 +136,5 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty(Constants.PROPERTY_SENTIMENT, sentimentScore);
 
     return commentEntity;
-  }
-
-  /* If the input name in the request is different from nickname, updates 
-   * the nickname in datastore UserInfo
-   */
-  private void maybeUpdateUserNickname(UserService userService, HttpServletRequest request, DatastoreService datastore) {
-    String nickname = request.getParameter(Constants.PROPERTY_NICKNAME);
-    String updatedName = request.getParameter(Constants.PROPERTY_NAME);
-    String userId = userService.getCurrentUser().getUserId();
-
-    if (updatedName.equals(nickname)) {
-      return;
-    }
-    Entity userInfoEntity = new Entity(Constants.ENTITY_USER_INFO, userId);
-    userInfoEntity.setProperty(Constants.PROPERTY_USER_ID, userId);
-    userInfoEntity.setProperty(Constants.PROPERTY_NICKNAME, updatedName);
-    datastore.put(userInfoEntity);
   }
 }
