@@ -53,8 +53,8 @@ THE SOFTWARE. -->
 <body id="bootstrap-overrides" onload="bodyOnLoad()">
   <nav id="navbar-sections" class="navbar fixed-top navbar-expand-sm navbar-light">
     <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="darkSwitch" />
-      <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+      <input type="checkbox" class="custom-control-input" id="dark-switch" />
+      <label class="custom-control-label" for="dark-switch">Dark Mode</label>
     </div>
     <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items"
@@ -174,7 +174,7 @@ THE SOFTWARE. -->
           <div class="card" id="wacc-card">
             <div class="card-body align-items-center ">
               <div class="my-auto   ">
-                <h5 class="card-title text-center ">WACC Compiler</h3>
+                <h5 class="card-title text-center">WACC Compiler</h3>
                   <p class="card-text"> In a group of 4, designed and developed a compiler for
                     a programming language WACC, a variant of While. I implemented a semantic checker with a
                     symbol table for the generation of the Abstract Syntax Tree. Some extra
@@ -352,7 +352,7 @@ THE SOFTWARE. -->
                 <div id="previous-comments">
                   <div class="row">
                     <p class="card-text">Display</p>
-                    <select class="custom-select" id="commentLimit" onchange="getCommentsWithLimit()">
+                    <select class="custom-select" id="comment-limit" onchange="getCommentsWithLimit()">
                         <option selected value="1">1</option>
                         <option value="2">2</option>
                         <option value="5">5</option>
@@ -373,11 +373,11 @@ THE SOFTWARE. -->
                   </div>
                   <button id="delete-comments-btn" class="btn btn-dark" onclick="deleteComments()">Delete all comments</button>
                 </div>
-                <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+                <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="admin-modal-label" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="adminModalLabel">Restricted action: admin only</h5>
+                        <h5 class="modal-title" id="admin-modal-label">Restricted action: admin only</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -392,22 +392,23 @@ THE SOFTWARE. -->
                   </div>
                 </div>
                 <div id="comment-form">
-                <form action="/data" method="POST">
-                  <div class="form-group d-none">
-                    <label for="inputName">Nickname</label>
-                    <input type="text" class="form-control" id="inputNickname" name="nickname">
-                  </div>
+                <form action="/update-nickname" method="POST" class="collapse" id="nickname-form">
                   <div class="form-group">
-                    <label for="inputName">Name</label>
-                    <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter name"
+                    <label for="input-nickname">Nickname</label>
+                    <input type="text" class="form-control" id="input-nickname" name="nickname" placeholder="Enter nickname"
                       required>
                   </div>
+                  <button type="submit" class="btn btn-dark">Set nickname</button>
+                </form>              
+
+                <form action="/data" method="POST" id="submit-form">
                   <div class="form-group">
-                    <label for="inputComment">Comment</label>
-                    <input type="text" class="form-control" id="inputComment" name="comment" placeholder="Enter comment"
+                    <label for="input-comment">Comment</label>
+                    <input type="text" class="form-control" id="input-comment" name="comment" placeholder="Enter comment"
                       required>
                   </div>
                   <button type="submit" class="btn btn-dark">Submit</button>
+                  <a class="btn btn-dark" data-toggle="collapse" href="#nickname-form" role="button" aria-expanded="false" aria-controls="nickname-form">Change nickname</a>
                 </form>
                 <a id="logout-url">Log out</a>
                 </div>

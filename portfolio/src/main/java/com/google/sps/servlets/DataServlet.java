@@ -32,7 +32,9 @@ import com.google.sps.utils.Constants;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,29 +51,20 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(Constants.ENTITY_COMMENT).addSort(Constants.PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
-
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    Query commentQuery = new Query(Constants.ENTITY_COMMENT).addSort(Constants.PROPERTY_TIMESTAMP, SortDirection.DESCENDING);
     int limit = Integer.parseInt(request.getParameter(Constants.PARAMETER_LIMIT));
-    List<Entity> results = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(limit));
-
+    List<Entity> commentResults = datastore.prepare(commentQuery).asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results) {
-      long id = entity.getKey().getId();
-      String userId = (String) entity.getProperty(Constants.PROPERTY_USER_ID);
-      String name = (String) entity.getProperty(Constants.PROPERTY_NAME);
-      String commentText = (String) entity.getProperty(Constants.PROPERTY_COMMENT);
-      long timestamp = (long) entity.getProperty(Constants.PROPERTY_TIMESTAMP);
-      String sentiment = (String) entity.getProperty(Constants.PROPERTY_SENTIMENT);
-
-      Comment comment = new Comment(id, userId, name, commentText, timestamp, sentiment);
-      comments.add(comment);
+    if (!commentResults.isEmpty()) {
+      Map<String, String> userNicknames = getUserNicknames(datastore);
+      for (Entity entity : commentResults) {
+        comments.add(getCommentFromEntity(entity, userNicknames));
+      }
     }
-
-    Gson gson = new Gson();
-
     response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(comments));
+    response.getWriter().println(new Gson().toJson(comments));
   }
 
   @Override
@@ -84,30 +77,9 @@ public class DataServlet extends HttpServlet {
       return;
     }
 
-    Entity commentEntity = new Entity(Constants.ENTITY_COMMENT);
-    long timestamp = System.currentTimeMillis();
-    String userId = userService.getCurrentUser().getUserId();
-    String nickname = request.getParameter(Constants.PROPERTY_NICKNAME);
-    String name = request.getParameter(Constants.PROPERTY_NAME);
-    String commentText = request.getParameter(Constants.PROPERTY_COMMENT);
-    String sentimentScore = getSentimentAnalysis(commentText);
-
-    commentEntity.setProperty(Constants.PROPERTY_NAME, name);
-    commentEntity.setProperty(Constants.PROPERTY_USER_ID, userId);
-    commentEntity.setProperty(Constants.PROPERTY_COMMENT, commentText);
-    commentEntity.setProperty(Constants.PROPERTY_TIMESTAMP, timestamp);
-    commentEntity.setProperty(Constants.PROPERTY_SENTIMENT, sentimentScore);
-    
+    Entity commentEntity = createCommentEntity(userService, request);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
-
-     if (!name.equals(nickname)) {
-        Entity userInfoEntity = new Entity(Constants.ENTITY_USER_INFO, userId);
-        userInfoEntity.setProperty(Constants.PROPERTY_USER_ID, userId);
-        userInfoEntity.setProperty(Constants.PROPERTY_NICKNAME, name);
-        datastore.put(userInfoEntity);
-    }
-
     response.sendRedirect("/index.html#comments");
   }
 
@@ -123,5 +95,44 @@ public class DataServlet extends HttpServlet {
     String score = new DecimalFormat("#.###").format(sentiment.getScore());
     languageService.close();
     return score;
+  }
+
+  /* Returns a Map of <userId, nickname> */
+  private Map<String, String> getUserNicknames(DatastoreService datastore) {
+    Query userInfoQuery = new Query(Constants.ENTITY_USER_INFO);
+    PreparedQuery userInfoResults = datastore.prepare(userInfoQuery);
+    Map<String, String> userNicknames = new HashMap<>();
+    for (Entity entity : userInfoResults.asIterable()) {
+      String userId = (String) entity.getProperty(Constants.PROPERTY_USER_ID);
+      String nickname = (String) entity.getProperty(Constants.PROPERTY_NICKNAME);
+      userNicknames.put(userId, nickname);
+    }      
+    return userNicknames;
+  }
+
+  private Comment getCommentFromEntity(Entity entity, Map<String, String> userNicknames) {
+    long id = entity.getKey().getId();
+    String userId = (String) entity.getProperty(Constants.PROPERTY_USER_ID);
+    String name = userNicknames.get(userId);
+    String commentText = (String) entity.getProperty(Constants.PROPERTY_COMMENT);
+    long timestamp = (long) entity.getProperty(Constants.PROPERTY_TIMESTAMP);
+    String sentiment = (String) entity.getProperty(Constants.PROPERTY_SENTIMENT);
+
+    return new Comment(id, userId, name, commentText, timestamp, sentiment);
+  }
+
+  private Entity createCommentEntity(UserService userService, HttpServletRequest request) throws IOException{
+    long timestamp = System.currentTimeMillis();
+    String userId = userService.getCurrentUser().getUserId();
+    String commentText = request.getParameter(Constants.PROPERTY_COMMENT);
+    String sentimentScore = getSentimentAnalysis(commentText);
+
+    Entity commentEntity = new Entity(Constants.ENTITY_COMMENT);
+    commentEntity.setProperty(Constants.PROPERTY_USER_ID, userId);
+    commentEntity.setProperty(Constants.PROPERTY_COMMENT, commentText);
+    commentEntity.setProperty(Constants.PROPERTY_TIMESTAMP, timestamp);
+    commentEntity.setProperty(Constants.PROPERTY_SENTIMENT, sentimentScore);
+
+    return commentEntity;
   }
 }
