@@ -261,33 +261,13 @@ public final class FindMeetingQueryTest {
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
             Arrays.asList(PERSON_A)),
-        new Event("Event 2", TimeRange.fromStartEnd(TIME_0830AM, TimeRange.END_OF_DAY, true),
+        new Event("Event 2", TimeRange.fromStartEnd(TIME_0900AM, TimeRange.END_OF_DAY, true),
             Arrays.asList(PERSON_A)));
 
     MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_60_MINUTES);
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected = Arrays.asList();
-
-    Assert.assertEquals(expected, actual);
-  }
-
-  @Test
-  public void slotIsLessThanMeetingDuration() {
-    // If the slot is less than meeting duration, it should not be included
-    //
-    // Events  :   |--A--|
-    // Day     : |---------------------|
-    // Meeting : |----|
-    // Options :         |-------------|
-    Collection<Event> events = Arrays.asList(new Event("Event 1",
-            TimeRange.fromStartDuration(TIME_0030AM, DURATION_30_MINUTES), Arrays.asList(PERSON_A)));
-
-    MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_1_HOUR);
-
-    Collection<TimeRange> actual = query.query(events, request);
-    Collection<TimeRange> expected =
-            Arrays.asList(TimeRange.fromStartEnd(TIME_0100AM, TimeRange.END_OF_DAY, true));
 
     Assert.assertEquals(expected, actual);
   }
