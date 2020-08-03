@@ -35,6 +35,8 @@ public final class FindMeetingQueryTest {
   private static final String PERSON_B = "Person B";
 
   // All dates are the first day of the year 2020.
+  private static final int TIME_0030AM = TimeRange.getTimeInMinutes(0, 30);
+  private static final int TIME_0100AM = TimeRange.getTimeInMinutes(1, 0);
   private static final int TIME_0800AM = TimeRange.getTimeInMinutes(8, 0);
   private static final int TIME_0830AM = TimeRange.getTimeInMinutes(8, 30);
   private static final int TIME_0900AM = TimeRange.getTimeInMinutes(9, 0);
@@ -266,6 +268,26 @@ public final class FindMeetingQueryTest {
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected = Arrays.asList();
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
+  public void slotIsLessThanMeetingDuration() {
+    // If the slot is less than meeting duration, it should not be included
+    //
+    // Events  :   |--A--|
+    // Day     : |---------------------|
+    // Meeting : |----|
+    // Options :         |-------------|
+    Collection<Event> events = Arrays.asList(new Event("Event 1",
+            TimeRange.fromStartDuration(TIME_0030AM, DURATION_30_MINUTES), Arrays.asList(PERSON_A)));
+
+    MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_1_HOUR);
+
+    Collection<TimeRange> actual = query.query(events, request);
+    Collection<TimeRange> expected =
+            Arrays.asList(TimeRange.fromStartEnd(TIME_0100AM, TimeRange.END_OF_DAY, true));
 
     Assert.assertEquals(expected, actual);
   }
