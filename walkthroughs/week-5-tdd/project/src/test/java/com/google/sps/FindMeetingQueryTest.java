@@ -14,15 +14,16 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 /** */
 @RunWith(JUnit4.class)
@@ -35,8 +36,6 @@ public final class FindMeetingQueryTest {
   private static final String PERSON_B = "Person B";
 
   // All dates are the first day of the year 2020.
-  private static final int TIME_0030AM = TimeRange.getTimeInMinutes(0, 30);
-  private static final int TIME_0100AM = TimeRange.getTimeInMinutes(1, 0);
   private static final int TIME_0800AM = TimeRange.getTimeInMinutes(8, 0);
   private static final int TIME_0830AM = TimeRange.getTimeInMinutes(8, 30);
   private static final int TIME_0900AM = TimeRange.getTimeInMinutes(9, 0);
