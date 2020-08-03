@@ -18,7 +18,9 @@ import java.util.*;
 
 public final class FindMeetingQuery {
   private final Collection<TimeRange> availableTimes = new ArrayList<>();
+  private long meetingDuration;
 
+  /* Returns all available slots for a meeting to happen */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     if (request.getAttendees().isEmpty()) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
@@ -28,6 +30,7 @@ public final class FindMeetingQuery {
       return Arrays.asList();
     }
 
+    // Get all unavailable time ranges based on the attendees
     List<TimeRange> unavailableTimes = new LinkedList<>();
     for (Event event: events) {
       if (containsAtLeastOneAttendee(event, request.getAttendees())) {
@@ -58,6 +61,7 @@ public final class FindMeetingQuery {
     }
 
     // Create slots between unavailable time ranges
+    meetingDuration = request.getDuration();
     for (int j = 0; j < unavailableTimes.size(); j++) {
       if (j == 0) {
         createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(j).start());
@@ -82,7 +86,7 @@ public final class FindMeetingQuery {
   }
 
   private void createSlot(int start, int end) {
-    if (start < end) {
+    if (start < end && end - start >= meetingDuration) {
       boolean inclusive = end == TimeRange.END_OF_DAY;
       availableTimes.add(TimeRange.fromStartEnd(start, end, inclusive));
     }
