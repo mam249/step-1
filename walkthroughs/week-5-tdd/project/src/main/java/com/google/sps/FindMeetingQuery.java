@@ -14,7 +14,12 @@
 
 package com.google.sps;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class FindMeetingQuery {
   private final Collection<TimeRange> availableTimes = new ArrayList<>();
