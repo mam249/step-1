@@ -51,11 +51,11 @@ public final class FindMeetingQuery {
 
     // Combine all overlapping unavailable time ranges
     Collections.sort(unavailableTimes, TimeRange.ORDER_BY_START);
-    int index = 0;
+    int index = 1;
     TimeRange current, next;
-    while (index <= unavailableTimes.size()) {
-      current = unavailableTimes.get(index);
-      next = unavailableTimes.get(index + 1);
+    while (index < unavailableTimes.size()) {
+      current = unavailableTimes.get(index - 1);
+      next = unavailableTimes.get(index);
       if (current.overlaps(next)) {
         int start = Math.min(current.start(), next.start());
         int end = Math.max(current.end(), next.end());
