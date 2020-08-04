@@ -22,16 +22,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public final class FindMeetingQuery {
-  private final Collection<TimeRange> availableTimes = new ArrayList<>();
-  private long meetingDuration;
+  private final Collection<TimeRange> mAvailableTimes = new ArrayList<>();
+  private long mMeetingDuration;
 
-  /* Returns all available slots for a meeting to happen */
+  /* Returns all available slots for a meeting to happen
+   * Parameters: events (all events that are in the calendar, some of them could not relate
+   *                      to the attendees in the meeting request) */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     if (request.getAttendees().isEmpty()) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
-    if (request.getDuration() >= TimeRange.WHOLE_DAY.duration() + 1) {
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
     }
 
@@ -49,24 +51,24 @@ public final class FindMeetingQuery {
 
     // Combine all overlapping unavailable time ranges
     Collections.sort(unavailableTimes, TimeRange.ORDER_BY_START);
-    int i = 1;
-    TimeRange curr, next;
-    while (i < unavailableTimes.size()) {
-      curr = unavailableTimes.get(i - 1);
-      next = unavailableTimes.get(i);
-      if (curr.overlaps(next)) {
-        int start = Math.min(curr.start(), next.start());
-        int end = Math.max(curr.end(), next.end());
-        TimeRange overlapped = TimeRange.fromStartEnd(start, end, false);
-        unavailableTimes.set(i - 1, overlapped);
+    int index = 0;
+    TimeRange current, next;
+    while (index <= unavailableTimes.size()) {
+      current = unavailableTimes.get(index);
+      next = unavailableTimes.get(index + 1);
+      if (current.overlaps(next)) {
+        int start = Math.min(current.start(), next.start());
+        int end = Math.max(current.end(), next.end());
+        TimeRange overlapped = TimeRange.fromStartEnd(start, end, /* inclusive */false);
+        unavailableTimes.set(index - 1, overlapped);
         unavailableTimes.remove(next);
       } else {
-        i++;
+        index++;
       }
     }
 
     // Create slots between unavailable time ranges
-    meetingDuration = request.getDuration();
+    mMeetingDuration = request.getDuration();
     for (int j = 0; j < unavailableTimes.size(); j++) {
       if (j == 0) {
         createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(j).start());
@@ -78,7 +80,7 @@ public final class FindMeetingQuery {
       }
     }
 
-    return availableTimes;
+    return mAvailableTimes;
   }
 
   private boolean containsAtLeastOneAttendee(Event event, Collection<String> attendees) {
@@ -90,10 +92,11 @@ public final class FindMeetingQuery {
     return false;
   }
 
+  /* mMeetingDuration should be set before calling this method */
   private void createSlot(int start, int end) {
-    if (start < end && end - start >= meetingDuration) {
+    if (start < end && end - start >= mMeetingDuration) {
       boolean inclusive = end == TimeRange.END_OF_DAY;
-      availableTimes.add(TimeRange.fromStartEnd(start, end, inclusive));
+      mAvailableTimes.add(TimeRange.fromStartEnd(start, end, inclusive));
     }
   }
 }
