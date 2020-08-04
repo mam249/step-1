@@ -69,14 +69,14 @@ public final class FindMeetingQuery {
 
     // Create slots between unavailable time ranges
     mMeetingDuration = request.getDuration();
-    for (int j = 0; j < unavailableTimes.size(); j++) {
-      if (j == 0) {
-        createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(j).start());
+    for (int idx = 0; idx < unavailableTimes.size(); idx++) {
+      if (idx == 0) {
+        createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(idx).start());
       } else  {
-        createSlot(unavailableTimes.get(j - 1).end(), unavailableTimes.get(j).start());
+        createSlot(unavailableTimes.get(idx - 1).end(), unavailableTimes.get(idx).start());
       }
-      if (j == unavailableTimes.size() - 1) {
-        createSlot(unavailableTimes.get(j).end(), TimeRange.END_OF_DAY);
+      if (idx == unavailableTimes.size() - 1) {
+        createSlot(unavailableTimes.get(idx).end(), TimeRange.END_OF_DAY);
       }
     }
 
