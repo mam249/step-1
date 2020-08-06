@@ -63,7 +63,7 @@ public final class FindMeetingQuery {
     }
 
     // Get all unavailable time ranges based on the attendees
-    List<TimeRange> unavailableTimes = new LinkedList<>();
+    List<TimeRange> unavailableTimes = new ArrayList<>();
     for (Event event: events) {
       if (containsAtLeastOneAttendee(event, attendees)) {
         unavailableTimes.add(event.getWhen());
