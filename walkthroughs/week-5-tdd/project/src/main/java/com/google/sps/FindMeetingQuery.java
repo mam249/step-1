@@ -41,10 +41,6 @@ public final class FindMeetingQuery {
     Collection<String> optionalAttendees = request.getOptionalAttendees();
     long meetingDuration = request.getDuration();
 
-    if (mandatoryAttendees.isEmpty() && optionalAttendees.isEmpty()) {
-      return Arrays.asList(TimeRange.WHOLE_DAY);
-    }
-
     if (optionalAttendees.isEmpty()) {
       return getAvailableTimes(mandatoryAttendees, events, meetingDuration);
     }
@@ -62,6 +58,10 @@ public final class FindMeetingQuery {
   }
   
   private Collection<TimeRange> getAvailableTimes(Collection<String> attendees, Collection<Event> events, long duration) {
+    if (attendees.isEmpty()) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+
     // Get all unavailable time ranges based on the attendees
     List<TimeRange> unavailableTimes = new LinkedList<>();
     for (Event event: events) {

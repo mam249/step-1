@@ -277,7 +277,7 @@ public final class FindMeetingQueryTest {
   public void noIntersectionWithOptional() {
     // Have mandatory attendees different events, but they have 3 slots for the meeting.
     // Optional attendee is busy the whole day, so slots that fit just the mandatory
-    // attendees are returned
+    // attendees are returned.
     //
     // Mandatory: A, B
     // Optional : C
@@ -310,8 +310,8 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void mandatoryAndOptionalCanAttend() {
-    // If one or more time slots exists so that both mandatory
-    // and optional attendees can attend, return them.
+    // One or more time slots exists so that both mandatory
+    // and optional attendees can attend, so return them.
     //
     // Mandatory: A, B
     // Optional : C
@@ -343,7 +343,7 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void justEnoughRoomOptionalIsIgnored() {
-    // Have one person, but make it so that there is just enough room at one point in the day to
+    // Have one mandatory person, but make it so that there is just enough room at one point in the day to
     // have the meeting. Optional attendee should be ignored since considering
     // their schedule would result in a time slot smaller than the requested time.
     //
@@ -406,7 +406,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void noMandatoryAndOptionalAreBusy() {
+  public void noMandatoryButOptionalAreBusy() {
     // No mandatory attendees, just two optional attendees with no gaps
     // in their schedules. The whole day should be returned
     //
@@ -415,7 +415,7 @@ public final class FindMeetingQueryTest {
     // Events  : |---------------A-------------|
     //           |---B---||--------B-----------|
     // Day     : |-----------------------------|
-    // Options : |--1--|     |--2--|     |--3--|
+    // Options : |-----------------------------|
 
     Collection<Event> events = Arrays.asList(
             new Event("Event 1", TimeRange.fromStartDuration(TimeRange.START_OF_DAY, TimeRange.WHOLE_DAY.duration()),
