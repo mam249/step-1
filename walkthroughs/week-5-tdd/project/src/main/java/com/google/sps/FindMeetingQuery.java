@@ -55,11 +55,11 @@ public final class FindMeetingQuery {
     }
     return availableTimesForAllAttendees;
   }
-  
+
   private Collection<TimeRange> getAvailableTimes(Collection<Event> events,
          Collection<String> attendees, long duration) {
     if (attendees.isEmpty()) {
-      return Arrays.asList(TimeRange.WHOLE_DAY);f
+      return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
     // Get all unavailable time ranges based on the attendees
@@ -96,12 +96,15 @@ public final class FindMeetingQuery {
     Collection<TimeRange> availableTimes = new ArrayList<>();
     for (int i = 0; i < unavailableTimes.size(); i++) {
       if (i == 0) {
-        createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(i).start(), duration, availableTimes);
+        addSlotToAvailableTimesIfSlotValid(TimeRange.START_OF_DAY,
+                unavailableTimes.get(i).start(), duration, availableTimes);
       } else  {
-        createSlot(unavailableTimes.get(i - 1).end(), unavailableTimes.get(i).start(), duration, availableTimes);
+        addSlotToAvailableTimesIfSlotValid(unavailableTimes.get(i - 1).end(),
+                unavailableTimes.get(i).start(), duration, availableTimes);
       }
       if (i == unavailableTimes.size() - 1) {
-        createSlot(unavailableTimes.get(i).end(), TimeRange.END_OF_DAY, duration, availableTimes);
+        addSlotToAvailableTimesIfSlotValid(unavailableTimes.get(i).end(),
+                TimeRange.END_OF_DAY, duration, availableTimes);
       }
     }
 
@@ -117,7 +120,8 @@ public final class FindMeetingQuery {
     return false;
   }
 
-  private void createSlot(int start, int end, long duration, Collection<TimeRange> availableTimes) {
+  private void addSlotToAvailableTimesIfSlotValid(int start, int end, long duration,
+                                                  Collection<TimeRange> availableTimes) {
     if (start < end && end - start >= duration) {
       boolean inclusive = end == TimeRange.END_OF_DAY;
       availableTimes.add(TimeRange.fromStartEnd(start, end, inclusive));
