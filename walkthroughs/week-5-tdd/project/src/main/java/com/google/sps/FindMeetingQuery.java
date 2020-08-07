@@ -57,7 +57,8 @@ public final class FindMeetingQuery {
     return availableTimesForAllAttendees;
   }
   
-  private Collection<TimeRange> getAvailableTimes(Collection<String> attendees, Collection<Event> events, long duration) {
+  private Collection<TimeRange> getAvailableTimes(Collection<String> attendees,
+        Collection<Event> events, long duration) {
     if (attendees.isEmpty()) {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
