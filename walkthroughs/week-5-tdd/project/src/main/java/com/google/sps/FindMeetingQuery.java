@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,25 +41,25 @@ public final class FindMeetingQuery {
     long meetingDuration = request.getDuration();
 
     if (optionalAttendees.isEmpty()) {
-      return getAvailableTimes(mandatoryAttendees, events, meetingDuration);
+      return getAvailableTimes(events, mandatoryAttendees, meetingDuration);
     }
 
     Collection<String> allAttendees = Stream.
             concat(mandatoryAttendees.stream(), optionalAttendees.stream()).
             collect(Collectors.toList());
 
-    Collection<TimeRange> availableTimesForAllAttendees = getAvailableTimes(allAttendees, events, meetingDuration);
+    Collection<TimeRange> availableTimesForAllAttendees = getAvailableTimes(events, allAttendees, meetingDuration);
 
     if (availableTimesForAllAttendees.isEmpty()) {
-      return getAvailableTimes(mandatoryAttendees, events, meetingDuration);
+      return getAvailableTimes(events, mandatoryAttendees, meetingDuration);
     }
     return availableTimesForAllAttendees;
   }
   
-  private Collection<TimeRange> getAvailableTimes(Collection<String> attendees,
-        Collection<Event> events, long duration) {
+  private Collection<TimeRange> getAvailableTimes(Collection<Event> events,
+         Collection<String> attendees, long duration) {
     if (attendees.isEmpty()) {
-      return Arrays.asList(TimeRange.WHOLE_DAY);
+      return Arrays.asList(TimeRange.WHOLE_DAY);f
     }
 
     // Get all unavailable time ranges based on the attendees
@@ -95,14 +94,14 @@ public final class FindMeetingQuery {
 
     // Create slots between unavailable time ranges
     Collection<TimeRange> availableTimes = new ArrayList<>();
-    for (int idx = 0; idx < unavailableTimes.size(); idx++) {
-      if (idx == 0) {
-        createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(idx).start(), duration, availableTimes);
+    for (int i = 0; i < unavailableTimes.size(); i++) {
+      if (i == 0) {
+        createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(i).start(), duration, availableTimes);
       } else  {
-        createSlot(unavailableTimes.get(idx - 1).end(), unavailableTimes.get(idx).start(), duration, availableTimes);
+        createSlot(unavailableTimes.get(i - 1).end(), unavailableTimes.get(i).start(), duration, availableTimes);
       }
-      if (idx == unavailableTimes.size() - 1) {
-        createSlot(unavailableTimes.get(idx).end(), TimeRange.END_OF_DAY, duration, availableTimes);
+      if (i == unavailableTimes.size() - 1) {
+        createSlot(unavailableTimes.get(i).end(), TimeRange.END_OF_DAY, duration, availableTimes);
       }
     }
 
