@@ -25,13 +25,13 @@ import java.util.stream.Stream;
 
 public final class FindMeetingQuery {
   /*
-   * 1. If one or more time slots exists so that both mandatory and optional attendees can attend,
-   *                                              returns those time slots.
+   * Returns available slots for a meeting. If one or more time slots exist so that both mandatory
+   * and optional attendees can attend, returns those time slots. Otherwise, returns the time slots
+   * that fit mandatory attendees.
    *
-   * 2. Otherwise, returns the time slots that fit just the mandatory attendees.
-   *
-   * Parameters: events (all events that are in the calendar, some of them could not relate
-   *                      to the attendees in the meeting request) */
+   * @param events All existing events in the calendar
+   * @param request {@link MeetingRequest} object with the request details
+   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
