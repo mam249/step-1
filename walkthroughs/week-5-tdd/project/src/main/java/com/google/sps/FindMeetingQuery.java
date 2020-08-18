@@ -18,29 +18,54 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class FindMeetingQuery {
-  private final Collection<TimeRange> mAvailableTimes = new ArrayList<>();
-  private long mMeetingDuration;
-
-  /* Returns all available slots for a meeting to happen
-   * Parameters: events (all events that are in the calendar, some of them could not relate
-   *                      to the attendees in the meeting request) */
+  /*
+   * Returns available slots for a meeting. If one or more time slots exist so that both mandatory
+   * and optional attendees can attend, returns those time slots. Otherwise, returns the time slots
+   * that fit mandatory attendees.
+   *
+   * @param events All existing events in the calendar
+   * @param request {@link MeetingRequest} object with the request details
+   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    if (request.getAttendees().isEmpty()) {
-      return Arrays.asList(TimeRange.WHOLE_DAY);
-    }
-
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
     }
 
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+    long meetingDuration = request.getDuration();
+
+    if (optionalAttendees.isEmpty()) {
+      return getAvailableTimes(events, mandatoryAttendees, meetingDuration);
+    }
+
+    Collection<String> allAttendees = Stream.
+            concat(mandatoryAttendees.stream(), optionalAttendees.stream()).
+            collect(Collectors.toList());
+
+    Collection<TimeRange> availableTimesForAllAttendees = getAvailableTimes(events, allAttendees, meetingDuration);
+
+    if (availableTimesForAllAttendees.isEmpty()) {
+      return getAvailableTimes(events, mandatoryAttendees, meetingDuration);
+    }
+    return availableTimesForAllAttendees;
+  }
+
+  private Collection<TimeRange> getAvailableTimes(Collection<Event> events,
+         Collection<String> attendees, long duration) {
+    if (attendees.isEmpty()) {
+      return Arrays.asList(TimeRange.WHOLE_DAY);
+    }
+
     // Get all unavailable time ranges based on the attendees
-    List<TimeRange> unavailableTimes = new LinkedList<>();
+    List<TimeRange> unavailableTimes = new ArrayList<>();
     for (Event event: events) {
-      if (containsAtLeastOneAttendee(event, request.getAttendees())) {
+      if (containsAtLeastOneAttendee(event, attendees)) {
         unavailableTimes.add(event.getWhen());
       }
     }
@@ -68,19 +93,22 @@ public final class FindMeetingQuery {
     }
 
     // Create slots between unavailable time ranges
-    mMeetingDuration = request.getDuration();
-    for (int idx = 0; idx < unavailableTimes.size(); idx++) {
-      if (idx == 0) {
-        createSlot(TimeRange.START_OF_DAY, unavailableTimes.get(idx).start());
+    Collection<TimeRange> availableTimes = new ArrayList<>();
+    for (int i = 0; i < unavailableTimes.size(); i++) {
+      if (i == 0) {
+        addSlotToAvailableTimesIfSlotValid(TimeRange.START_OF_DAY,
+                unavailableTimes.get(i).start(), duration, availableTimes);
       } else  {
-        createSlot(unavailableTimes.get(idx - 1).end(), unavailableTimes.get(idx).start());
+        addSlotToAvailableTimesIfSlotValid(unavailableTimes.get(i - 1).end(),
+                unavailableTimes.get(i).start(), duration, availableTimes);
       }
-      if (idx == unavailableTimes.size() - 1) {
-        createSlot(unavailableTimes.get(idx).end(), TimeRange.END_OF_DAY);
+      if (i == unavailableTimes.size() - 1) {
+        addSlotToAvailableTimesIfSlotValid(unavailableTimes.get(i).end(),
+                TimeRange.END_OF_DAY, duration, availableTimes);
       }
     }
 
-    return mAvailableTimes;
+    return availableTimes;
   }
 
   private boolean containsAtLeastOneAttendee(Event event, Collection<String> attendees) {
@@ -92,11 +120,11 @@ public final class FindMeetingQuery {
     return false;
   }
 
-  /* mMeetingDuration should be set before calling this method */
-  private void createSlot(int start, int end) {
-    if (start < end && end - start >= mMeetingDuration) {
+  private void addSlotToAvailableTimesIfSlotValid(int start, int end, long duration,
+                                                  Collection<TimeRange> availableTimes) {
+    if (start < end && end - start >= duration) {
       boolean inclusive = end == TimeRange.END_OF_DAY;
-      mAvailableTimes.add(TimeRange.fromStartEnd(start, end, inclusive));
+      availableTimes.add(TimeRange.fromStartEnd(start, end, inclusive));
     }
   }
 }
